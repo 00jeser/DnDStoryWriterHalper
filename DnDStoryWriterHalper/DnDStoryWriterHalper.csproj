@@ -14,4 +14,11 @@
     <PackageReference Include="WPF-UI" Version="2.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Views\Pages\BrowserPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

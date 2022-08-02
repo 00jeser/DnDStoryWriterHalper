@@ -15,6 +15,7 @@ namespace DnDStoryWriterHalper.Views.Pages
         public DataTemplate ImagePageDataTemplate { get; set; }
         public DataTemplate DefaultDataTemplate { get; set; }
         public DataTemplate DirrecotoryDataTemplate { get; set; }
+        public DataTemplate BrowserPageDataTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -26,6 +27,8 @@ namespace DnDStoryWriterHalper.Views.Pages
                     return DirrecotoryDataTemplate;
                 case ImagePage ip:
                     return ImagePageDataTemplate;
+                case BrowserPage bp:
+                    return BrowserPageDataTemplate;
                 default:
                     return DefaultDataTemplate;
             }

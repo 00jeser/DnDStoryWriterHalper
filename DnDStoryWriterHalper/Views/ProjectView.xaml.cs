@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DnDStoryWriterHalper.Components;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
 using Microsoft.Win32;
@@ -97,6 +98,16 @@ namespace DnDStoryWriterHalper.Views
                         FileName = fileName
                     },mi.CommandParameter);
                 }
+            }
+        }
+
+        private void AddBrowserPage(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem mi)
+            {
+                UrlEnterWindow w = new UrlEnterWindow();
+                w.ShowDialog();
+                ProjectService.Instance.AddPageOrDirrecory(new BrowserPage("Сcылка",w.Result), mi.CommandParameter);
             }
         }
     }

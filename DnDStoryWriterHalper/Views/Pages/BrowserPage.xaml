@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:models="clr-namespace:DnDStoryWriterHalper.Models"
+                    xmlns:converters="clr-namespace:DnDStoryWriterHalper.Services.Converters"
+                    xmlns:helpers="clr-namespace:DnDStoryWriterHalper.Components.Helpers">
+    <DataTemplate x:Key="BrowserPageDataTemplate"
+                  DataType="{x:Type models:BrowserPage}">
+        <DataTemplate.Resources>
+
+        </DataTemplate.Resources>
+        <WebBrowser Source="https://ya.ru" helpers:WebBrowserHelper.BindableSource="{Binding Url, Mode=OneWay}"/>
+    </DataTemplate>
+</ResourceDictionary>

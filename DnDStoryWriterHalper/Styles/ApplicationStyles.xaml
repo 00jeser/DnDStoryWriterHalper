@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="TextBlockStyle.xaml"/>
+        <ResourceDictionary Source="ColorsAndBrushes.xaml"/>
+
+        <!--<ResourceDictionary Source="TextBlockStyle.xaml"/>-->
         <ResourceDictionary Source="ImageAwesomeStyle.xaml"/>
+        <ResourceDictionary Source="TreeViewStyle.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

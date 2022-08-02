@@ -6,10 +6,12 @@
         <ResourceDictionary Source="ImagePage.xaml"/>
         <ResourceDictionary Source="TextPage.xaml"/>
         <ResourceDictionary Source="DirrecoryPage.xaml"/>
+        <ResourceDictionary Source="BrowserPage.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <pages:PagesTemplateSelector x:Key="PagesTemplateSelector"
                                  DefaultDataTemplate="{StaticResource DefaultPageDataTemplate}"
                                  TextPageDataTemplate="{StaticResource TextPageDataTemplate}"
                                  ImagePageDataTemplate="{StaticResource ImagePageDataTemplate}"
-                                 DirrecotoryDataTemplate="{StaticResource DirrectoryPageDataTemplate}"/>
+                                 DirrecotoryDataTemplate="{StaticResource DirrectoryPageDataTemplate}"
+                                 BrowserPageDataTemplate="{StaticResource BrowserPageDataTemplate}"/>
 </ResourceDictionary>

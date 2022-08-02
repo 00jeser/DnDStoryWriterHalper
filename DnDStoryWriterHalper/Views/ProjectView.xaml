@@ -16,6 +16,7 @@
                 <Separator/>
                 <MenuItem Header="Текстовая страница" Click="AddTextPage"/>
                 <MenuItem Header="Страница изображения" Click="AddImagePage"/>
+                <MenuItem Header="Встроить сайт" Click="AddBrowserPage"/>
             </MenuItem>
         </ContextMenu>
     </Grid.Resources>
@@ -34,6 +35,7 @@
                     <Separator/>
                     <MenuItem Header="Текстовая страница" CommandParameter="{Binding}" Click="AddTextPage"/>
                     <MenuItem Header="Страница изображения" CommandParameter="{Binding}" Click="AddImagePage"/>
+                    <MenuItem Header="Встроить сайт" CommandParameter="{Binding}" Click="AddBrowserPage"/>
                 </MenuItem>
                 <MenuItem Header="Удалить" CommandParameter="{Binding}" Click="RemovePageOrDirrectory"/>
             </ContextMenu>
@@ -47,9 +49,12 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:TextPage}">
-                <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" HorizontalAlignment="Stretch" ContextMenu="{StaticResource PageContextMenu}"/>
+                <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}"/>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:ImagePage}">
+                <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}"/>
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type models:BrowserPage}">
                 <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}"/>
             </HierarchicalDataTemplate>
         </components:ExtendedTreeView.Resources>

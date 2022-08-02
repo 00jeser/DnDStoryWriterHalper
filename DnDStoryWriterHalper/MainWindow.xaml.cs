@@ -25,7 +25,6 @@ namespace DnDStoryWriterHalper
         public MainWindow()
         {
             InitializeComponent();
-            (new TesrWindow()).Show();
         }
     }
 }

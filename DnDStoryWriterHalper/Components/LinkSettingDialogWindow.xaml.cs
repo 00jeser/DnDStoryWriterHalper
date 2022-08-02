@@ -20,7 +20,7 @@ namespace DnDStoryWriterHalper.Components
     /// <summary>
     /// Логика взаимодействия для LinkSettingDialogWindow.xaml
     /// </summary>
-    public partial class LinkSettingDialogWindow : UiWindow
+    public partial class LinkSettingDialogWindow : Window
     {
         public (string, string) result;
         public LinkSettingDialogWindow()
