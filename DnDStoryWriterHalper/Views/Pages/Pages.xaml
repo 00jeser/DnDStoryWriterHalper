@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:pages="clr-namespace:DnDStoryWriterHalper.Views.Pages">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="DefaultPage.xaml"/>
+        <ResourceDictionary Source="ImagePage.xaml"/>
+        <ResourceDictionary Source="TextPage.xaml"/>
+        <ResourceDictionary Source="DirrecoryPage.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <pages:PagesTemplateSelector x:Key="PagesTemplateSelector"
+                                 DefaultDataTemplate="{StaticResource DefaultPageDataTemplate}"
+                                 TextPageDataTemplate="{StaticResource TextPageDataTemplate}"
+                                 ImagePageDataTemplate="{StaticResource ImagePageDataTemplate}"
+                                 DirrecotoryDataTemplate="{StaticResource DirrectoryPageDataTemplate}"/>
+</ResourceDictionary>

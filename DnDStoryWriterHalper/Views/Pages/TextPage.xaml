@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
+                    xmlns:models="clr-namespace:DnDStoryWriterHalper.Models">
+    <DataTemplate x:Key="TextPageDataTemplate" DataType="{x:Type models:TextPage}">
+        <components:TextEditor Text="{Binding Text, Mode=TwoWay}"/>
+    </DataTemplate>
+</ResourceDictionary>
