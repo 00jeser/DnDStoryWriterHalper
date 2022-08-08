@@ -2,12 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:models="clr-namespace:DnDStoryWriterHalper.Models"
                     xmlns:converters="clr-namespace:DnDStoryWriterHalper.Services.Converters"
-                    xmlns:helpers="clr-namespace:DnDStoryWriterHalper.Components.Helpers">
-    <DataTemplate x:Key="BrowserPageDataTemplate"
-                  DataType="{x:Type models:BrowserPage}">
+                    xmlns:helpers="clr-namespace:DnDStoryWriterHalper.Components.Helpers"
+                    xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+                    xmlns:handlers="clr-namespace:DnDStoryWriterHalper.Components.Handlers">
+    <DataTemplate x:Key="BrowserPageDataTemplate">
         <DataTemplate.Resources>
-
+            <handlers:CefDownloadHandler x:Key="DownloadHandler"/>
+            <handlers:CefDialogHandler x:Key="DialogHandler"/>
         </DataTemplate.Resources>
-        <WebBrowser Source="https://ya.ru" helpers:WebBrowserHelper.BindableSource="{Binding Url, Mode=OneWay}"/>
+        <wpf:ChromiumWebBrowser Address="{Binding Url, Mode=OneWay}" DownloadHandler="{StaticResource DownloadHandler}" DialogHandler="{StaticResource DialogHandler}"/>
     </DataTemplate>
 </ResourceDictionary>

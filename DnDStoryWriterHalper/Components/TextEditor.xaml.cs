@@ -17,9 +17,6 @@ using Microsoft.Win32;
 
 namespace DnDStoryWriterHalper.Components
 {
-    /// <summary>
-    /// Логика взаимодействия для TextEditor.xaml
-    /// </summary>
     public partial class TextEditor : UserControl
     {
         public static readonly DependencyProperty TextProperty =
@@ -70,11 +67,18 @@ namespace DnDStoryWriterHalper.Components
 
         private void _richTextBox_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var il = _richTextBox.Selection.Start.Paragraph.Inlines.FirstInline;
-            if (il is Hyperlink h)
+            try
             {
-                var a = h.NavigateUri;
-                NavigationEventsProvider.Instance.NavigateTo(a.Host, this);
+                var il = _richTextBox.Selection.Start.Paragraph.Inlines.FirstInline;
+                if (il is Hyperlink h)
+                {
+                    var a = h.NavigateUri;
+                    NavigationEventsProvider.Instance.NavigateTo(a.Host, this);
+                }
+            }
+            catch (Exception)
+            {
+                
             }
         }
 

@@ -38,16 +38,7 @@ namespace DnDStoryWriterHalper.ViewModels
         {
             get => _newO;
         }
-
-        private SimpleCommand _saveCommand = new SimpleCommand(o =>
-        {
-            ProjectService.Instance.SaveData();
-        });
-
-        public SimpleCommand SaveCommand
-        {
-            get => _saveCommand;
-        }
+        
 
         public TempViewModel()
         {

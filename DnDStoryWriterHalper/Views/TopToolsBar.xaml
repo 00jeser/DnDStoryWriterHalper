@@ -6,14 +6,16 @@
       xmlns:local="clr-namespace:DnDStoryWriterHalper.Views"
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" >
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
         <StackPanel.Resources>
-            <Style TargetType="Button">
+            <Style TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
                  <!--BasedOn="{StaticResource DefaultButtonStyle}"-->
                 <Setter Property="Width" Value="50"/>
                 <Setter Property="Height" Value="50"/>
                 <Setter Property="Margin" Value="1"/>
+                 <Setter Property="Padding" Value="5" />
             </Style>
         </StackPanel.Resources>
         <Button Command="{Binding NewCommand}" CommandParameter="{Binding }" ToolTip="новый">

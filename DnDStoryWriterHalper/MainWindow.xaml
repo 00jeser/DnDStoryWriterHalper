@@ -12,10 +12,10 @@
                xmlns:models="clr-namespace:DnDStoryWriterHalper.Models"
                xmlns:fa="http://schemas.fontawesome.io/icons/"
                xmlns:views="clr-namespace:DnDStoryWriterHalper.Views"
-               xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+               xmlns:hc="https://handyorg.github.io/handycontrol"
                mc:Ignorable="d"
-               Title="MainWindow" Height="450" Width="800"
-               WindowStartupLocation="CenterScreen">
+               WindowState="Maximized"
+               Title="MainWindow">
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
@@ -38,13 +38,31 @@
             </Grid>
             <Grid Grid.Row="1" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition MaxWidth="400" MinWidth="100"/>
+                    <ColumnDefinition MaxWidth="600" MinWidth="100"/>
                     <ColumnDefinition Width="4"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
                 <views:ProjectView/>
                 <Grid Grid.Column="2">
+                    <!--<ItemsControl ItemsSource="{Binding Items}" Grid.Column="0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <components:TemplatedRangeSelector Height="50">
+                                    <Grid>
+                                        <TextBlock Style="{DynamicResource TextBlockTitle}" VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding Name}"/>
+
+                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Text}" Margin="0 30 0 0"/>
+                                    </Grid>
+                                </components:TemplatedRangeSelector>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>-->
                     <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
                 </Grid>
 
@@ -52,37 +70,4 @@
             </Grid>
         </Grid>
     </Grid>
-    <!--<Window.DataContext>
-        <viewModels:MainViewModel/>
-    </Window.DataContext>
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Views/Pages/Pages.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-    <Grid VerticalAlignment="Stretch">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <views:TopToolsBar/>
-        </Grid>
-        <Grid Grid.Row="1" VerticalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition MaxWidth="400" MinWidth="100"/>
-                <ColumnDefinition Width="4"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <views:ProjectView/>
-            <Grid Grid.Column="2">
-                <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
-            </Grid>
-
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        </Grid>
-    </Grid>-->
 </Window>

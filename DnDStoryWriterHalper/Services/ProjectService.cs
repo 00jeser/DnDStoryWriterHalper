@@ -60,7 +60,7 @@ public class ProjectService
                 }
             }
         }
-        
+
         CurrentFile = file;
     }
 
@@ -76,10 +76,10 @@ public class ProjectService
             var ofd = new SaveFileDialog();
             ofd.Filter = "*.zip|*.zip";
             ofd.ShowDialog();
-            ofd.FileOk += (s, e) =>
+            if (!string.IsNullOrWhiteSpace(ofd.FileName))
             {
                 CurrentFile = ofd.FileName;
-            };
+            }
         }
         var ls = new ObservableCollection<object>(Components.ToArray());
         Task t = new Task(() =>
@@ -90,7 +90,7 @@ public class ProjectService
                 try
                 {
                     var e = zip.GetEntry("project.xml");
-                    if (e.Name != null)
+                    if (e != null && e.Name != null)
                     {
                         e.Delete();
                     }
@@ -120,6 +120,51 @@ public class ProjectService
         await t.WaitAsync(new TimeSpan(0, 0, 10, 0, 0));
     }
 
+    public bool AddFileAsItem(string filePath, string fileName)
+    {
+        if (string.IsNullOrWhiteSpace(CurrentFile))
+            return false;
+        bool success = false;
+        var zippedfilename = "";
+        using (var file = new FileStream(filePath, FileMode.Open))
+        {
+            using (ZipArchive zip = ZipFile.Open(CurrentFile, ZipArchiveMode.Update))
+            {
+                zippedfilename = Guid.NewGuid() + "." + fileName.Split('.').Last();
+                using (var e = zip.CreateEntry(zippedfilename).Open())
+                {
+                    file.CopyTo(e);
+                    success = true;
+                }
+            }
+        }
+        File.Delete(filePath);
+
+        if (success)
+        {
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    var fcAsObject = Components.FirstOrDefault(x => x is FilesContainer, null);
+                    FilesContainer FileContainer;
+                    if (fcAsObject == null)
+                    {
+                        FileContainer = new FilesContainer();
+                        Components.Insert(0, FileContainer);
+                    }
+                    else
+                    {
+                        FileContainer = fcAsObject as FilesContainer;
+                    }
+                    FileContainer.Files.Add(new FileItem()
+                    {
+                        FileName = zippedfilename,
+                        Name = fileName
+                    });
+                });
+        }
+        return success;
+    }
     public void AddFile(Stream file, string name)
     {
         using (ZipArchive zip = ZipFile.Open(CurrentFile, ZipArchiveMode.Update))
@@ -212,10 +257,46 @@ public class ProjectService
         else
         {
             if (page is IDirrectory)
-                Components.Insert(0, page);
+                Components.Insert(Components.FirstOrDefault(x => true, null) is FilesContainer ? 1 : 0, page);
             else
                 Components.Add(page);
         }
+    }
+
+    public string UnzipFileByName(string fileName)
+    {
+        FilesContainer fc = Components.FirstOrDefault(x => x is FilesContainer, null) as FilesContainer;
+        foreach (var f in fc.Files)
+        {
+            if (f.Name == fileName)
+            {
+                return UnzipFileByPath(f.FileName);
+            }
+        }
+
+        return "";
+    }
+    public string UnzipFileByPath(string fileName)
+    {
+        var dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "tempfiles");
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
+        var path = Path.Combine(dir, fileName);
+        using (var file = new FileStream(path, FileMode.OpenOrCreate))
+        {
+            using (ZipArchive zip = ZipFile.Open(CurrentFile, ZipArchiveMode.Update))
+            {
+                var en = zip.GetEntry(fileName);
+                if (en == null)
+                    return "";
+                using (var e = en.Open())
+                {
+                    e.CopyTo(file);
+                }
+            }
+        }
+
+        return path;
     }
 
     public async void NewProject()
@@ -234,11 +315,10 @@ public class ProjectService
     }
 
 
-    public record class GuidNamePair(string Guid, string Name);
     public List<IPage> GetAllPages(ObservableCollection<object> list = null)
     {
         var rez = new List<IPage>();
-        foreach (var component in list??Components)
+        foreach (var component in list ?? Components)
         {
             switch (component)
             {
@@ -251,6 +331,17 @@ public class ProjectService
             }
         }
         return rez;
+    }
+
+    public void ClearTempFiles()
+    {
+        var dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "tempfiles");
+        if (!Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
+        foreach (var file in Directory.GetFiles(dir))
+        {
+            File.Delete(file);
+        }
     }
 
     private static ProjectService? instance;

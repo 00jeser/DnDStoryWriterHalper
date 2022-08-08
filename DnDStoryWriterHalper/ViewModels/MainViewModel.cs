@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
+using HandyControl.Controls;
+using HandyControl.Data;
 using Microsoft.Win32;
 
 namespace DnDStoryWriterHalper.ViewModels
@@ -54,9 +56,20 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _newCommand, value);
         }
 
-        private ICommand _saveCommand = new Command((p) =>
+        private ICommand _saveCommand = new Command(async (p) =>
         {
-            ProjectService.Instance.SaveData();
+            Growl.Info(new GrowlInfo()
+            {
+                Message = "Сохранение начато",
+                WaitTime = 1,
+                ShowDateTime = false
+            });
+            await ProjectService.Instance.SaveData();
+            Growl.Success(new GrowlInfo()
+            {
+                Message = "Сохранено",
+                ShowDateTime = false
+            });
         });
 
         public ICommand SaveCommand

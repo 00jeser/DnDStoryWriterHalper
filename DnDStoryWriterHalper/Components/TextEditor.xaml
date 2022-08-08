@@ -5,16 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DnDStoryWriterHalper.Components" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
+             xmlns:hc="https://handyorg.github.io/handycontrol"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style x:Key="ChangeButton" TargetType="Button">
-             <!--BasedOn="{StaticResource DefaultButtonStyle}"-->
-            <Setter Property="Width" Value="25"/>
-            <Setter Property="Height" Value="25"/>
-            <Setter Property="Margin" Value="2"/>
-            <Setter Property="Padding" Value="2"/>
-        </Style>
     </UserControl.Resources>
     <Grid>
 
@@ -29,8 +23,6 @@
                           MouseDoubleClick="_richTextBox_OnMouseDoubleClick" 
                           Background="Transparent" 
                           TextChanged="_richTextBox_OnTextChanged"
-                          Foreground="White"
-                          CaretBrush="White"
                           SelectionBrush="Gray">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
@@ -43,11 +35,51 @@
             <RichTextBox.CommandBindings>
                 <CommandBinding Command="EditingCommands.ToggleBold"/>
                 <CommandBinding Command="EditingCommands.ToggleItalic"/>
+                <CommandBinding Command="EditingCommands.ToggleBullets"/>
                 <CommandBinding Command="EditingCommands.IncreaseFontSize"/>
                 <CommandBinding Command="EditingCommands.DecreaseFontSize"/>
             </RichTextBox.CommandBindings>
         </xctk:RichTextBox>
-        <StackPanel Orientation="Horizontal" Margin="10">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <hc:ButtonGroup HorizontalAlignment="Left" Margin="4 2">
+                <Button Command="EditingCommands.ToggleBold" 
+                    CommandTarget="{Binding ElementName=_richTextBox}">
+                    <fa:ImageAwesome Margin="3" Icon="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                </Button>
+                <Button Command="EditingCommands.ToggleItalic" 
+                        CommandTarget="{Binding ElementName=_richTextBox}">
+                    <fa:ImageAwesome Margin="3" Icon="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+            </hc:ButtonGroup>
+            <hc:ButtonGroup HorizontalAlignment="Left" Margin="4 2">
+                <Button Command="EditingCommands.ToggleBullets" 
+                        CommandTarget="{Binding ElementName=_richTextBox}">
+                    <fa:ImageAwesome Margin="3" Icon="ListUl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Button>
+            </hc:ButtonGroup>
+            <hc:ButtonGroup HorizontalAlignment="Left" Margin="2">
+                <Button Command="EditingCommands.IncreaseFontSize" 
+                    CommandTarget="{Binding ElementName=_richTextBox}">
+                    <Grid Margin="3">
+                        <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6 3 0 0"/>
+                        <fa:ImageAwesome Icon="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
+                    </Grid>
+                </Button>
+                <Button Command="EditingCommands.DecreaseFontSize" 
+                    CommandTarget="{Binding ElementName=_richTextBox}">
+                    <Grid Margin="3">
+                        <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5 2 0 0"/>
+                        <fa:ImageAwesome Icon="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
+                    </Grid>
+                </Button>
+            </hc:ButtonGroup>
+            <hc:ButtonGroup HorizontalAlignment="Left" Margin="2">
+                <Button Click="AddHyperLink">
+                    <fa:ImageAwesome Margin="3" Icon="Link"/>
+                </Button>
+            </hc:ButtonGroup>
+        </StackPanel>
+        <!--<StackPanel Orientation="Horizontal" Margin="10">
             <Button Command="EditingCommands.ToggleBold" 
                     CommandTarget="{Binding ElementName=_richTextBox}"
                     Style="{StaticResource ChangeButton}">
@@ -79,6 +111,6 @@
                     Style="{StaticResource ChangeButton}">
                 <fa:ImageAwesome Icon="Link"/>
             </Button>
-        </StackPanel>
+        </StackPanel>-->
     </Grid>
 </UserControl>

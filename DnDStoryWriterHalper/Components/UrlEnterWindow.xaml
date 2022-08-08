@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:DnDStoryWriterHalper.Components"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="UrlEnterWindow" Height="100" Width="412" ResizeMode="NoResize">
+        Title="UrlEnterWindow" Height="130" Width="400" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2.8*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,7 +24,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Text="https://" VerticalAlignment="Center" x:Name="httpsLable"/>
-            <TextBox x:Name="UrlBox" Grid.Column="1" HorizontalAlignment="Stretch" TextChanged="UrlBox_OnTextChanged"/>
+            <TextBox x:Name="UrlBox" Grid.Column="1" HorizontalAlignment="Stretch" TextChanged="UrlBox_OnTextChanged" VerticalAlignment="Center"/>
         </Grid>
 
         <Button Grid.Row="1" Margin="10,10,10,10" Width="80" Click="Cancle_Clic" HorizontalAlignment="Left">

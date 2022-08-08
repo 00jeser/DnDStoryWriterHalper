@@ -15,8 +15,12 @@ public class Dirrectory : ViewModelBase, IDirrectory
     [XmlElement("name")]
     public string Name { get; set; }
     [XmlArray("content")]
+    [XmlArrayItem("file", typeof(FileItem))]
     [XmlArrayItem("dirrectory", typeof(Dirrectory))]
+    [XmlArrayItem("imagepage", typeof(ImagePage))]
     [XmlArrayItem("textpage", typeof(TextPage))]
+    [XmlArrayItem("browserpage", typeof(BrowserPage))]
+    [XmlArrayItem("filescontainer", typeof(FilesContainer))]
     public ObservableCollection<object> Content { get; set; }
 
 

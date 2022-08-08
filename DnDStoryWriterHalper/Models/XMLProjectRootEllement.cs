@@ -12,10 +12,12 @@ namespace DnDStoryWriterHalper.Models
     public record class XMLProjectRootEllement
     {
         [XmlArray("items")]
+        [XmlArrayItem("file", typeof(FileItem))]
         [XmlArrayItem("dirrectory", typeof(Dirrectory))]
         [XmlArrayItem("imagepage", typeof(ImagePage))]
         [XmlArrayItem("textpage", typeof(TextPage))]
         [XmlArrayItem("browserpage", typeof(BrowserPage))]
+        [XmlArrayItem("filescontainer", typeof(FilesContainer))]
         public ObservableCollection<object> Items { get; set; }
     }
 }

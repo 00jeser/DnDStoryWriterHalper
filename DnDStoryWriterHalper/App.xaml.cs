@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using DnDStoryWriterHalper.Services;
 
 namespace DnDStoryWriterHalper
 {
@@ -15,6 +16,7 @@ namespace DnDStoryWriterHalper
     {
         public App()
         {
+            ProjectService.Instance.ClearTempFiles();
         }
     }
 }
