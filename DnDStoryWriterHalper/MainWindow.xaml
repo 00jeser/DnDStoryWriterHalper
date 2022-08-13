@@ -45,24 +45,8 @@
 
                 <views:ProjectView/>
                 <Grid Grid.Column="2">
-                    <!--<ItemsControl ItemsSource="{Binding Items}" Grid.Column="0">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <components:TemplatedRangeSelector Height="50">
-                                    <Grid>
-                                        <TextBlock Style="{DynamicResource TextBlockTitle}" VerticalAlignment="Top" HorizontalAlignment="Center" Text="{Binding Name}"/>
+                    <!--<components:AddonViewer/>-->
 
-                                        <TextBlock HorizontalAlignment="Center" Text="{Binding Text}" Margin="0 30 0 0"/>
-                                    </Grid>
-                                </components:TemplatedRangeSelector>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
                     <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
                 </Grid>
 

@@ -19,6 +19,8 @@ namespace DnDStoryWriterHalper.Services.Converters
             {
                 TextPage => FontAwesomeIcon.AlignJustify,
                 ImagePage => FontAwesomeIcon.Image,
+                BrowserPage => FontAwesomeIcon.Globe,
+                AddonPage => FontAwesomeIcon.PlusSquare,
                 _ => FontAwesomeIcon.QuestionCircle
             };
         }

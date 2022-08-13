@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>index</title>
+    <script>
+        window.onload = async function () {
+            await CefSharp.BindObjectAsync("dnd");
+
+            window.setContent = (parameters) => {
+                document.getElementById("content").value = parameters;
+            }
+        }
+
+
+        async function aClick() {
+            window.dnd.updateContent(document.getElementById("content").value+"");
+        }
+    </script>
+</head>
+
+<body>
+    <input id="content" onchange="aClick()">
+</body>
+
+</html>

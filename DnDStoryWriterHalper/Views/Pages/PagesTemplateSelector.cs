@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Markup;
+using DnDStoryWriterHalper.Components;
 using DnDStoryWriterHalper.Models;
 
 namespace DnDStoryWriterHalper.Views.Pages
@@ -29,9 +32,12 @@ namespace DnDStoryWriterHalper.Views.Pages
                     return ImagePageDataTemplate;
                 case BrowserPage bp:
                     return BrowserPageDataTemplate;
+                case AddonPage bp:
+                    return (new AddonPageDataTemplateCreator()).GetNewAddonDataTemplate();
                 default:
                     return DefaultDataTemplate;
             }
         }
+        
     }
 }

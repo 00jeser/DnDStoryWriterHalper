@@ -61,6 +61,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Addons\Vector\VectorEditor\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="Views\Pages\BrowserPage.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

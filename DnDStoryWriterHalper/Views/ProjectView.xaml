@@ -12,7 +12,7 @@
       mc:Ignorable="d" Background="Transparent">
     <Grid.Resources>
         <converters:PageObjectToAwesomeFontIconConverter x:Key="IconConverter"/>
-        <ContextMenu Style="{DynamicResource ContextMenuBaseStyle}" x:Key="TreeContextMenu">
+        <ContextMenu Style="{DynamicResource ContextMenuBaseStyle}" x:Key="TreeContextMenu" x:Name="TreeCM">
             <MenuItem Header="Новая страница">
                 <MenuItem Header="Добавить Папку" Click="AddDir"/>
                 <Separator/>
@@ -20,6 +20,16 @@
                 <MenuItem Header="Страница изображения" Click="AddImagePage"/>
                 <MenuItem Header="Встроить сайт" Click="AddBrowserPage"/>
             </MenuItem>
+        </ContextMenu>
+        <ContextMenu x:Key="DirrectoryContextMenu" x:Name="DirrectoryCM">
+            <MenuItem Header="Новая страница">
+                <MenuItem Header="Добавить Папку" CommandParameter="{Binding}" Click="AddDir"/>
+                <Separator/>
+                <MenuItem Header="Текстовая страница" CommandParameter="{Binding}" Click="AddTextPage"/>
+                <MenuItem Header="Страница изображения" CommandParameter="{Binding}" Click="AddImagePage"/>
+                <MenuItem Header="Встроить сайт" CommandParameter="{Binding}" Click="AddBrowserPage"/>
+            </MenuItem>
+            <MenuItem Header="Удалить" CommandParameter="{Binding}" Click="RemovePageOrDirrectory"/>
         </ContextMenu>
     </Grid.Resources>
     <components:ExtendedTreeView BorderThickness="0"
@@ -31,16 +41,6 @@
                                  ContextMenu="{StaticResource TreeContextMenu}"
     >
         <components:ExtendedTreeView.Resources>
-            <ContextMenu x:Key="DirrectoryContextMenu">
-                <MenuItem Header="Новая страница">
-                    <MenuItem Header="Добавить Папку" CommandParameter="{Binding}" Click="AddDir"/>
-                    <Separator/>
-                    <MenuItem Header="Текстовая страница" CommandParameter="{Binding}" Click="AddTextPage"/>
-                    <MenuItem Header="Страница изображения" CommandParameter="{Binding}" Click="AddImagePage"/>
-                    <MenuItem Header="Встроить сайт" CommandParameter="{Binding}" Click="AddBrowserPage"/>
-                </MenuItem>
-                <MenuItem Header="Удалить" CommandParameter="{Binding}" Click="RemovePageOrDirrectory"/>
-            </ContextMenu>
             <ContextMenu x:Key="PageContextMenu">
                 <MenuItem Header="Удалить" CommandParameter="{Binding}" Click="RemovePageOrDirrectory"/>
             </ContextMenu>
@@ -51,25 +51,31 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:TextPage}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource DirrectoryContextMenu}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
                     <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:ImagePage}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource DirrectoryContextMenu}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
                     <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:BrowserPage}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource DirrectoryContextMenu}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
+                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type models:AddonPage}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
                     <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:FilesContainer}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource DirrectoryContextMenu}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
                     <fa:ImageAwesome Icon="File" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5" Opacity="0.5"/>
                     <TextBlock Text="{Binding Name}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
