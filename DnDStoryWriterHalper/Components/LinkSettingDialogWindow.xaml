@@ -7,7 +7,7 @@
           xmlns:fa="http://schemas.fontawesome.io/icons/"
           xmlns:converters="clr-namespace:DnDStoryWriterHalper.Services.Converters"
           mc:Ignorable="d"
-          Title="LinkSettingDialogWindow" Height="154" Width="412" ResizeMode="NoResize">
+          Title="LinkSettingDialogWindow" Height="190" Width="412" ResizeMode="NoResize">
     <Grid>
         <Grid.Resources>
             <converters:PageObjectToAwesomeFontIconConverter x:Key="IconConverter"/>

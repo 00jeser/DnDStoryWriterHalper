@@ -30,20 +30,7 @@ namespace DnDStoryWriterHalper.Views
         public ProjectView()
         {
             InitializeComponent();
-            NavigationEventsProvider.Instance.LinkClicked += (sender, args) =>
-            {
-                for (int i = 0; i < tv.ItemContainerGenerator.Items.Count; i++)
-                {
-                    var tvi = (tv.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem);
-                    if (tvi != null && tv.ItemContainerGenerator.ItemFromContainer(tvi) is IPage page)
-                    {
-                        if (args.Url == page.Guid)
-                        {
-                            tvi.IsSelected = true;
-                        }
-                    }
-                }
-            };
+            NavigationEventsProvider.Instance.LinkClicked += GoTo;
 
             var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Addons");
             foreach (var addon in Directory.GetDirectories(path))
@@ -95,6 +82,43 @@ namespace DnDStoryWriterHalper.Views
                 }
                 ((Resources["TreeContextMenu"] as ContextMenu).Items[0] as MenuItem).Items.Add(addonItem);
                 ((Resources["DirrectoryContextMenu"] as ContextMenu).Items[0] as MenuItem).Items.Add(addonItem2);
+            }
+        }
+
+        private void GoTo(object? sender, NavigationEventsProvider.LinkEventArgs e)
+        {
+            for (int i = 0; i < tv.ItemContainerGenerator.Items.Count; i++)
+            {
+                var tvi = (tv.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem);
+                if (tvi != null && tv.ItemContainerGenerator.ItemFromContainer(tvi) is IPage page)
+                {
+                    if (e.Url == page.Guid)
+                    {
+                        tvi.IsSelected = true;
+                    }
+                }
+                if (tvi != null && tv.ItemContainerGenerator.ItemFromContainer(tvi) is IDirrectory dir)
+                {
+                    GoToRecursion(e.Url, tvi);
+                }
+            }
+        }
+        private void GoToRecursion(string Url, TreeViewItem item)
+        {
+            for (int i = 0; i < item.ItemContainerGenerator.Items.Count; i++)
+            {
+                var tvi = (item.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem);
+                if (tvi != null && item.ItemContainerGenerator.ItemFromContainer(tvi) is IPage page)
+                {
+                    if (Url == page.Guid)
+                    {
+                        tvi.IsSelected = true;
+                    }
+                }
+                if (tvi != null && item.ItemContainerGenerator.ItemFromContainer(tvi) is IDirrectory dir)
+                {
+                    GoToRecursion(Url, tvi);
+                }
             }
         }
 

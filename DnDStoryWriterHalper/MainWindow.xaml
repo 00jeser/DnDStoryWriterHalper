@@ -13,6 +13,7 @@
                xmlns:fa="http://schemas.fontawesome.io/icons/"
                xmlns:views="clr-namespace:DnDStoryWriterHalper.Views"
                xmlns:hc="https://handyorg.github.io/handycontrol"
+               xmlns:visualNodeEditor="clr-namespace:DnDStoryWriterHalper.Components.VisualNodeEditor"
                mc:Ignorable="d"
                WindowState="Maximized"
                Title="MainWindow">
@@ -46,8 +47,10 @@
                 <views:ProjectView/>
                 <Grid Grid.Column="2">
                     <!--<components:AddonViewer/>-->
+                    <visualNodeEditor:VisualNodeEditor x:Name="Editor" Margin="0 50 0 0 "/>
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Text="{Binding StrokesData,ElementName=Editor}" Height="50"/>
 
-                    <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
+                    <!--<ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>-->
                 </Grid>
 
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>

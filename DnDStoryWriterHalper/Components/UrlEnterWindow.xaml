@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DnDStoryWriterHalper.Components"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
-        Title="UrlEnterWindow" Height="130" Width="400" ResizeMode="NoResize">
+        Title="UrlEnterWindow" Height="150" Width="400" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
