@@ -37,6 +37,35 @@ namespace DnDStoryWriterHalper.Components
             set => SetValue(TextProperty, value);
         }
 
+        public static readonly DependencyProperty MultiLineProperty = DependencyProperty.Register(
+            "MultiLine", typeof(bool), typeof(EditableTextBlock), new PropertyMetadata(default(bool), MultiLinePropertyChangedCallback));
+
+        private static void MultiLinePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var etb = d as EditableTextBlock;
+            if (e.NewValue is bool b)
+            {
+                etb.Block.TextWrapping = TextWrapping.Wrap;
+                etb.Box.TextWrapping = TextWrapping.Wrap;
+                etb.Box.AcceptsReturn = true;
+            }
+        }
+
+        public bool MultiLine
+        {
+            get { return (bool) GetValue(MultiLineProperty); }
+            set { SetValue(MultiLineProperty, value); }
+        }
+
+        //public static readonly DependencyProperty FontSizeProperty = DependencyProperty.Register(
+        //    "FontSize", typeof(double), typeof(EditableTextBlock), new PropertyMetadata(default(double)));
+
+        //public double FontSize
+        //{
+        //    get { return (double) GetValue(FontSizeProperty); }
+        //    set { SetValue(FontSizeProperty, value); }
+        //}
+
         public EditableTextBlock()
         {
             InitializeComponent();

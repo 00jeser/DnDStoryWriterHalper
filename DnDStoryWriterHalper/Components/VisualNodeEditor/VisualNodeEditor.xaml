@@ -56,7 +56,10 @@
                                PreviewMouseDown="Ink_OnMouseDown"
                                MouseMove="Ink_OnMouseMove" 
                                PreviewMouseUp="Ink_OnMouseUp"
-                               MouseWheel="Ink_OnMouseWheel" StrokeCollected="Ink_OnStrokeCollected">
+                               MouseWheel="Ink_OnMouseWheel" 
+                               StrokeCollected="Ink_OnStrokeCollected" 
+                               StrokeErased="Ink_OnStrokeErased" SelectionMoved="Ink_OnSelectionMoved"
+                               Initialized="Ink_OnInitialized">
                         <InkCanvas.Background>
                             <DrawingBrush Viewport="0,0,0.002,0.002" TileMode="Tile">
                                 <DrawingBrush.Drawing>

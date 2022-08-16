@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DnDStoryWriterHalper.Extensions;
 using HandyControl.Data;
 
 namespace DnDStoryWriterHalper.Components.VisualNodeEditor
@@ -24,33 +24,82 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
     /// </summary>
     public partial class VisualNodeEditor : UserControl
     {
+        #region StrokesData
         public static DependencyProperty StrokesDataProperty = DependencyProperty.Register(
-            nameof(StrokesData), 
-            typeof(byte[]), 
-            typeof(VisualNodeEditor), 
+            nameof(StrokesData),
+            typeof(string),
+            typeof(VisualNodeEditor),
             new FrameworkPropertyMetadata(
-                Array.Empty<byte>(), 
-                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, 
+                "",
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 StrokesDataChanged
                 )
             );
 
         private static void StrokesDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue is byte[] bb)
-                using (var stream = new MemoryStream())
-                {
-                    stream.Write(bb);
-                    stream.Seek(0, SeekOrigin.Begin);
-                    (d as VisualNodeEditor).ink.Strokes = new StrokeCollection(stream);
-                }
+            using var stream = new MemoryStream();
+            stream.Write(Convert.FromBase64String(e.NewValue.ToString()));
+            stream.Seek(0, SeekOrigin.Begin);
+            (d as VisualNodeEditor).ink.Strokes = new StrokeCollection(stream);
         }
 
-        public byte[] StrokesData
+        public string StrokesData
         {
-            get => (byte[])GetValue(StrokesDataProperty);
+            get => (string)GetValue(StrokesDataProperty);
             set => SetValue(StrokesDataProperty, value);
         }
+        #endregion
+
+        #region FiguresData
+
+        public static readonly DependencyProperty FigureDataProperty = DependencyProperty.Register(
+            "FigureData",
+            typeof(string),
+            typeof(VisualNodeEditor),
+            new FrameworkPropertyMetadata(
+                default(string),
+                FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                FigureDataPropertyChangedCallback
+                )
+            );
+
+        private static void FigureDataPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var vne = d as VisualNodeEditor;
+            string[] figures = e.NewValue.ToString().Split('|');
+            foreach (var figure in figures)
+            {
+                string[] figureData = figure.Split(';'); // type;color;width;height;x;y;data
+                if (figureData.Length != 7)
+                    continue;
+                FrameworkElement c = new FrameworkElement();
+                switch (figureData[0])
+                {
+                    case "0":
+                        c = new Rectangle() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()) };
+                        break;
+                    case "1":
+                        c = new Ellipse() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()) };
+                        break;
+                    case "2":
+                        c = new EditableTextBlock { MultiLine = true, FontSize = 20 };
+                        (c as EditableTextBlock).Text = figureData[6];
+                        break;
+                }
+                c.Width = int.Parse(figureData[2]);
+                c.Height = int.Parse(figureData[3]);
+                InkCanvas.SetLeft(c, double.Parse(figureData[4]));
+                InkCanvas.SetTop(c, double.Parse(figureData[5]));
+            }
+        }
+
+        public string FigureData
+        {
+            get { return (string)GetValue(FigureDataProperty); }
+            set { SetValue(FigureDataProperty, value); }
+        }
+        #endregion
 
         public VisualNodeEditor()
         {
@@ -96,7 +145,7 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
             }
             if (e.Data.GetDataPresent(typeof(TextBlock)))
             {
-                var a = new EditableTextBlock() { Width = 100, Height = 100, Text = "SomeText" };
+                var a = new EditableTextBlock() { Width = 100, Height = 100, Text = "SomeText", MultiLine = true, FontSize = 20 };
                 ink.Children.Add(a);
                 InkCanvas.SetTop(a, e.GetPosition(ink).Y - 50);
                 InkCanvas.SetLeft(a, e.GetPosition(ink).X - 50);
@@ -128,17 +177,17 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
         }
 
         private Point _lastPoint;
-        private bool _isMoved;
+        private bool _isScrolling;
         private void Ink_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Pressed && e.ChangedButton == MouseButton.Middle)
-                _isMoved = true;
+                _isScrolling = true;
             _lastPoint = e.GetPosition(IncScrollViewer);
         }
 
         private void Ink_OnMouseMove(object sender, MouseEventArgs e)
         {
-            if (_isMoved)
+            if (_isScrolling)
             {
                 IncScrollViewer.ScrollToHorizontalOffset(IncScrollViewer.HorizontalOffset + (_lastPoint.X - e.GetPosition(IncScrollViewer).X));
                 IncScrollViewer.ScrollToVerticalOffset(IncScrollViewer.VerticalOffset + (_lastPoint.Y - e.GetPosition(IncScrollViewer).Y));
@@ -150,7 +199,7 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
         {
 
             if (e.ButtonState == MouseButtonState.Released && e.ChangedButton == MouseButton.Middle)
-                _isMoved = false;
+                _isScrolling = false;
         }
 
         private void IncScrollViewer_OnMouseWheel(object sender, MouseWheelEventArgs e)
@@ -215,17 +264,81 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
             DragDrop.DoDragDrop(this, sender, DragDropEffects.Move);
         }
 
+        private void UpdateStrokesData()
+        {
+            string strokes = "";
+            var a = ink.Children;
+            using var s = new MemoryStream();
+            ink.Strokes.Save(s);
+            s.Position = 0;
+            strokes = Convert.ToBase64String(s.ToArray());
+
+            StrokesData = strokes;
+        }
+
+        private void UpdateFiguresData()
+        {
+            StringBuilder figures = new();
+
+            foreach (UIElement child in ink.Children)
+            {   // type;color;width;height;x;y;data
+                figures.Append('|');
+                figures.Append(child switch
+                {
+                    Rectangle => '0',
+                    Ellipse => '1',
+                    EditableTextBlock => '2',
+                    _ => '0'
+                });
+                figures.Append(';');
+                figures.Append(child switch
+                {
+                    Shape s => (s.Fill as SolidColorBrush)?.Color.ToLong().ToString("X"),
+                    _ => ""
+                });
+                figures.Append(';');
+                figures.Append((child as FrameworkElement)?.Width);
+                figures.Append(';');
+                figures.Append((child as FrameworkElement)?.Height);
+                figures.Append(';');
+                figures.Append(InkCanvas.GetLeft(child).ToString("F0"));
+                figures.Append(';');
+                figures.Append(InkCanvas.GetTop(child).ToString("F0"));
+                figures.Append(';');
+                figures.Append(child switch
+                {
+                    EditableTextBlock etb => etb.Text,
+                    _ => ""
+                });
+            }
+
+            if (figures[0] == '|')
+                figures.Remove(0, 1);
+
+            FigureData = figures.ToString();
+        }
+
+
+        private async void Ink_OnInitialized(object? sender, EventArgs e)
+        {
+            IncScrollViewer.ScrollToVerticalOffset(5000);
+            IncScrollViewer.ScrollToHorizontalOffset(5000);
+        }
+
         private void Ink_OnStrokeCollected(object sender, InkCanvasStrokeCollectedEventArgs e)
         {
-            byte[] strokes;
-            using (var s = new MemoryStream())
-            {
-                ink.Strokes.Save(s);
-                s.Position = 0;
-                strokes = s.ToArray();
-            }
-            
-            StrokesData = strokes;
+            UpdateStrokesData();
+        }
+
+        private void Ink_OnStrokeErased(object sender, RoutedEventArgs e)
+        {
+            UpdateStrokesData();
+        }
+
+        private void Ink_OnSelectionMoved(object? sender, EventArgs e)
+        {
+            UpdateStrokesData();
+            UpdateFiguresData();
         }
     }
 }
