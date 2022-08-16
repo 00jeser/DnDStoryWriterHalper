@@ -47,10 +47,10 @@
                 <views:ProjectView/>
                 <Grid Grid.Column="2">
                     <!--<components:AddonViewer/>-->
-                    <visualNodeEditor:VisualNodeEditor x:Name="Editor" Margin="0 50 0 0 "/>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Text="{Binding FigureData,ElementName=Editor}" Height="50" TextWrapping="WrapWithOverflow"/>
+                    <!--<visualNodeEditor:VisualNodeEditor x:Name="Editor" Margin="0 50 0 0 "/>
+                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Text="{Binding FigureData,ElementName=Editor}" Height="50" TextWrapping="WrapWithOverflow"/>-->
 
-                    <!--<ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>-->
+                    <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
                 </Grid>
 
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>

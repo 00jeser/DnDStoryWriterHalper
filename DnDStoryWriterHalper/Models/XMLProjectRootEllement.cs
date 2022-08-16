@@ -19,6 +19,7 @@ namespace DnDStoryWriterHalper.Models
         [XmlArrayItem("browserpage", typeof(BrowserPage))]
         [XmlArrayItem("filescontainer", typeof(FilesContainer))]
         [XmlArrayItem("addonpage", typeof(AddonPage))]
+        [XmlArrayItem("canvaspage", typeof(CanvasPage))]
         public ObservableCollection<object> Items { get; set; }
     }
 }

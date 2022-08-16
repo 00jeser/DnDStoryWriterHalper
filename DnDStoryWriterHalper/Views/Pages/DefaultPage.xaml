@@ -3,7 +3,18 @@
                     xmlns:fa="http://schemas.fontawesome.io/icons/">
     <DataTemplate x:Key="DefaultPageDataTemplate">
         <Grid>
-            <fa:ImageAwesome Icon="ExclamationTriangle" Foreground="Red" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--<fa:ImageAwesome Icon="ExclamationTriangle" Foreground="Red" Width="100" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+            <Image Source="/logo.png" Grid.Row="1" Grid.Column="1" Opacity="0.5"/>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

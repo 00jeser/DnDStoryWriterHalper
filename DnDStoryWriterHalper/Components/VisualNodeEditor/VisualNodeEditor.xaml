@@ -58,7 +58,8 @@
                                PreviewMouseUp="Ink_OnMouseUp"
                                MouseWheel="Ink_OnMouseWheel" 
                                StrokeCollected="Ink_OnStrokeCollected" 
-                               StrokeErased="Ink_OnStrokeErased" SelectionMoved="Ink_OnSelectionMoved"
+                               StrokeErased="Ink_OnStrokeErased" 
+                               SelectionMoved="Ink_OnSelectionMoved" SelectionResized="Ink_OnSelectionResized"
                                Initialized="Ink_OnInitialized">
                         <InkCanvas.Background>
                             <DrawingBrush Viewport="0,0,0.002,0.002" TileMode="Tile">
@@ -66,7 +67,7 @@
                                     <DrawingGroup>
                                         <GeometryDrawing Brush="White">
                                             <GeometryDrawing.Geometry>
-                                                <RectangleGeometry Rect="0,0,10,10" />
+                                                <RectangleGeometry Rect="0,0,20,20" />
                                             </GeometryDrawing.Geometry>
                                         </GeometryDrawing>
 

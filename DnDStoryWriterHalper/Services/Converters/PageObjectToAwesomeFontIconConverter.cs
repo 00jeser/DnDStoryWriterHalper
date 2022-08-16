@@ -21,6 +21,7 @@ namespace DnDStoryWriterHalper.Services.Converters
                 ImagePage => FontAwesomeIcon.Image,
                 BrowserPage => FontAwesomeIcon.Globe,
                 AddonPage => FontAwesomeIcon.PlusSquare,
+                CanvasPage => FontAwesomeIcon.PencilSquare,
                 _ => FontAwesomeIcon.QuestionCircle
             };
         }

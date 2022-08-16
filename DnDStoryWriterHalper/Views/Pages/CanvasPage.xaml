@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:handlers="clr-namespace:DnDStoryWriterHalper.Components.Handlers"
+                    xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+                    xmlns:models="clr-namespace:DnDStoryWriterHalper.Models"
+                    xmlns:visualNodeEditor="clr-namespace:DnDStoryWriterHalper.Components.VisualNodeEditor">
+
+    <DataTemplate DataType="{x:Type models:CanvasPage}" x:Key="CanvasPageDataTemplate">
+        <visualNodeEditor:VisualNodeEditor FigureData="{Binding FiguresData}" StrokesData="{Binding StrokesData}"/>
+    </DataTemplate>
+</ResourceDictionary>

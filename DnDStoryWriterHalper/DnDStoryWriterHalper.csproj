@@ -42,7 +42,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="logo.ico" />
+    <Resource Include="logo.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,11 +7,13 @@
         <ResourceDictionary Source="TextPage.xaml"/>
         <ResourceDictionary Source="DirrecoryPage.xaml"/>
         <ResourceDictionary Source="BrowserPage.xaml"/>
+        <ResourceDictionary Source="CanvasPage.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <pages:PagesTemplateSelector x:Key="PagesTemplateSelector"
                                  DefaultDataTemplate="{StaticResource DefaultPageDataTemplate}"
                                  TextPageDataTemplate="{StaticResource TextPageDataTemplate}"
                                  ImagePageDataTemplate="{StaticResource ImagePageDataTemplate}"
                                  DirrecotoryDataTemplate="{StaticResource DirrectoryPageDataTemplate}"
-                                 BrowserPageDataTemplate="{StaticResource BrowserPageDataTemplate}"/>
+                                 BrowserPageDataTemplate="{StaticResource BrowserPageDataTemplate}"
+                                 CanvasPageDataTemplate="{StaticResource CanvasPageDataTemplate}"/>
 </ResourceDictionary>

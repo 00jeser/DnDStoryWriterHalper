@@ -12,10 +12,10 @@ namespace DnDStoryWriterHalper.Extensions
         public static Color ToARGBColor(this long value)
         {
             return Color.FromArgb(
-                (byte)(value & 0xFF000000 >> 4 * 6),
-                (byte)(value & 0x00FF0000 >> 4 * 4),
-                (byte)(value & 0x0000FF00 >> 4 * 2),
-                (byte)(value & 0x000000FF >> 0)
+                (byte)((value & 0xFF000000) >> 4 * 6),
+                (byte)((value & 0x00FF0000) >> 4 * 4),
+                (byte)((value & 0x0000FF00) >> 4 * 2),
+                (byte)((value & 0x000000FF) >> 0)
             );
         }
 

@@ -19,6 +19,7 @@
                 <MenuItem Header="Текстовая страница" Click="AddTextPage"/>
                 <MenuItem Header="Страница изображения" Click="AddImagePage"/>
                 <MenuItem Header="Встроить сайт" Click="AddBrowserPage"/>
+                <MenuItem Header="Добавить доску" Click="AddCanvasPage"/>
             </MenuItem>
         </ContextMenu>
         <ContextMenu x:Key="DirrectoryContextMenu" x:Name="DirrectoryCM">
@@ -28,6 +29,7 @@
                 <MenuItem Header="Текстовая страница" CommandParameter="{Binding}" Click="AddTextPage"/>
                 <MenuItem Header="Страница изображения" CommandParameter="{Binding}" Click="AddImagePage"/>
                 <MenuItem Header="Встроить сайт" CommandParameter="{Binding}" Click="AddBrowserPage"/>
+                <MenuItem Header="Добавить доску" CommandParameter="{Binding}" Click="AddCanvasPage"/>
             </MenuItem>
             <MenuItem Header="Удалить" CommandParameter="{Binding}" Click="RemovePageOrDirrectory"/>
         </ContextMenu>
@@ -63,6 +65,12 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:BrowserPage}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
+                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type models:CanvasPage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
                     <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>

@@ -38,6 +38,17 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
 
         private static void StrokesDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if (!(d as VisualNodeEditor).NeedToUpdateWhenDataChenged)
+            {
+                (d as VisualNodeEditor).NeedToUpdateWhenDataChenged = true;
+                return;
+            }
+
+            if (e.NewValue == "")
+            {
+                (d as VisualNodeEditor).ink.Strokes = new StrokeCollection();
+                return;
+            }
             using var stream = new MemoryStream();
             stream.Write(Convert.FromBase64String(e.NewValue.ToString()));
             stream.Seek(0, SeekOrigin.Begin);
@@ -66,7 +77,17 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
 
         private static void FigureDataPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            if (!(d as VisualNodeEditor).NeedToUpdateWhenDataChenged)
+            {
+                (d as VisualNodeEditor).NeedToUpdateWhenDataChenged = true;
+                return;
+            }
             var vne = d as VisualNodeEditor;
+            vne.ink.Children.Clear();
+            if (e.NewValue == null || e.NewValue is not string)
+            {
+                return;
+            }
             string[] figures = e.NewValue.ToString().Split('|');
             foreach (var figure in figures)
             {
@@ -87,10 +108,11 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                         (c as EditableTextBlock).Text = figureData[6];
                         break;
                 }
-                c.Width = int.Parse(figureData[2]);
-                c.Height = int.Parse(figureData[3]);
+                c.Width = double.Parse(figureData[2]);
+                c.Height = double.Parse(figureData[3]);
                 InkCanvas.SetLeft(c, double.Parse(figureData[4]));
                 InkCanvas.SetTop(c, double.Parse(figureData[5]));
+                vne.ink.Children.Add(c);
             }
         }
 
@@ -100,6 +122,8 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
             set { SetValue(FigureDataProperty, value); }
         }
         #endregion
+
+        public bool NeedToUpdateWhenDataChenged = true;
 
         public VisualNodeEditor()
         {
@@ -150,6 +174,7 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 InkCanvas.SetTop(a, e.GetPosition(ink).Y - 50);
                 InkCanvas.SetLeft(a, e.GetPosition(ink).X - 50);
             }
+            UpdateFiguresData();
         }
 
         private void SetPen(object sender, RoutedEventArgs e)
@@ -266,6 +291,7 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
 
         private void UpdateStrokesData()
         {
+            NeedToUpdateWhenDataChenged = false;
             string strokes = "";
             var a = ink.Children;
             using var s = new MemoryStream();
@@ -278,6 +304,7 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
 
         private void UpdateFiguresData()
         {
+            NeedToUpdateWhenDataChenged = false;
             StringBuilder figures = new();
 
             foreach (UIElement child in ink.Children)
@@ -297,9 +324,9 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                     _ => ""
                 });
                 figures.Append(';');
-                figures.Append((child as FrameworkElement)?.Width);
+                figures.Append((child as FrameworkElement)?.Width.ToString("F1"));
                 figures.Append(';');
-                figures.Append((child as FrameworkElement)?.Height);
+                figures.Append((child as FrameworkElement)?.Height.ToString("F1"));
                 figures.Append(';');
                 figures.Append(InkCanvas.GetLeft(child).ToString("F0"));
                 figures.Append(';');
@@ -336,6 +363,12 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
         }
 
         private void Ink_OnSelectionMoved(object? sender, EventArgs e)
+        {
+            UpdateStrokesData();
+            UpdateFiguresData();
+        }
+
+        private void Ink_OnSelectionResized(object? sender, EventArgs e)
         {
             UpdateStrokesData();
             UpdateFiguresData();

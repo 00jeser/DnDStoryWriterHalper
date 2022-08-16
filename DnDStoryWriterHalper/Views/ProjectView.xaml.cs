@@ -193,5 +193,13 @@ namespace DnDStoryWriterHalper.Views
         {
             ProjectService.Instance.AddPageOrDirrecory(new AddonPage { PluginName = addon, PageName = page, Name = "AddonPage", Content = "lol"}, dir);
         }
+
+        private void AddCanvasPage(object sender, RoutedEventArgs e)
+        {
+            if (sender is MenuItem mi)
+            {
+                ProjectService.Instance.AddPageOrDirrecory(new CanvasPage(), mi.CommandParameter);
+            }
+        }
     }
 }
