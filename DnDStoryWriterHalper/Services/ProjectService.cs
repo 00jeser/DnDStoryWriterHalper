@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Xml.Serialization;
+using DnDStoryWriterHalper.Components;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.ViewModels;
 using Microsoft.Win32;
@@ -62,6 +63,7 @@ public class ProjectService
         }
 
         CurrentFile = file;
+        //(new FileSelectDialogWindow()).ShowDialog();
     }
 
     public async void SaveToFile(string file)
@@ -174,6 +176,14 @@ public class ProjectService
                 file.CopyTo(e);
             }
         }
+    }
+
+    public IEnumerable<FileItem> GetAllFiles()
+    {
+        var fc = Components?.FirstOrDefault(x => x is FilesContainer, null) as FilesContainer;
+        if(fc == null)
+            return new List<FileItem>();
+        return fc.Files;
     }
 
     public ImageSource GetImage(string name)

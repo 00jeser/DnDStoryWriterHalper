@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using CefSharp;
 using DnDStoryWriterHalper.Services;
+using HandyControl.Controls;
+using HandyControl.Data;
 
 namespace DnDStoryWriterHalper.Components.Handlers
 {
     public class CefDownloadHandler : IDownloadHandler
     {
+        public bool IsDownloading = false;
         public bool CanDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, string url, string requestMethod)
         {
-            return true;
+            return !IsDownloading;
         }
 
         public void OnBeforeDownload(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
@@ -28,12 +31,48 @@ namespace DnDStoryWriterHalper.Components.Handlers
             callback.Continue(path, false);
         }
 
-        public void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
+        public async void OnDownloadUpdated(IWebBrowser chromiumWebBrowser, IBrowser browser, DownloadItem downloadItem,
             IDownloadItemCallback callback)
         {
             if (downloadItem.IsComplete)
             {
-                ProjectService.Instance.AddFileAsItem(downloadItem.FullPath, downloadItem.SuggestedFileName);
+                string? fileName = null;
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    var fd = new FileSaveDialogWindow(downloadItem.SuggestedFileName);
+                    fd.ShowDialog();
+                    fileName = fd.Result;
+                });
+                if (fileName != null)
+                {
+                    ProjectService.Instance.AddFileAsItem(downloadItem.FullPath, fileName);
+                    Growl.Success(new GrowlInfo()
+                    {
+                        Message = "Скачено",
+                        ShowDateTime = false
+                    });
+                }
+                else
+                {
+                    Growl.Error(new GrowlInfo()
+                    {
+                        Message = "Отменено",
+                        ShowDateTime = false
+                    });
+                }
+
+                IsDownloading = false;
+            }
+            else if(IsDownloading == false)
+            {
+                IsDownloading = true;
+                Growl.Info(new GrowlInfo()
+                {
+                    Message = "Скачивание начато",
+                    WaitTime = 1,
+                    ShowDateTime = false
+                });
+                await Task.Delay(2000);
             }
         }
     }

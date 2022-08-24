@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:DnDStoryWriterHalper.Components" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:hc="https://handyorg.github.io/handycontrol"
+             xmlns:colorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -78,6 +79,7 @@
                     <fa:ImageAwesome Margin="3" Icon="Link"/>
                 </Button>
             </hc:ButtonGroup>
+            <colorPicker:PortableColorPicker Width="50" ColorChanged="OnColorChanged"/>
         </StackPanel>
         <!--<StackPanel Orientation="Horizontal" Margin="10">
             <Button Command="EditingCommands.ToggleBold" 

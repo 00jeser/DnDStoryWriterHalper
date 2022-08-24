@@ -15,8 +15,18 @@ namespace DnDStoryWriterHalper.Components.Handlers
         public bool OnFileDialog(IWebBrowser chromiumWebBrowser, IBrowser browser, CefFileDialogMode mode, string title,
             string defaultFilePath, List<string> acceptFilters, IFileDialogCallback callback)
         {
-            var file = (ProjectService.Instance.Components.First(x => x is FilesContainer) as FilesContainer).Files.Select(x => x.Name).First();
-            callback.Continue(new List<string>(){ ProjectService.Instance.UnzipFileByName(file) });
+            string? file = null;
+            Application.Current.Dispatcher.Invoke(
+                () =>
+                {
+                    var fd = new FileSelectDialogWindow();
+                    fd.ShowDialog();
+                    file = fd.Result.Name;
+                }
+            );
+            if (file == null)
+                return false;
+            callback.Continue(new List<string>() { ProjectService.Instance.UnzipFileByName(file) });
             return true;
         }
     }

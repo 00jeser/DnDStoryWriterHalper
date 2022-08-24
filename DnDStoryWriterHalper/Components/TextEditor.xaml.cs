@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ColorPicker;
 using DnDStoryWriterHalper.Services;
 using Microsoft.Win32;
 
@@ -87,5 +88,9 @@ namespace DnDStoryWriterHalper.Components
             Text = _richTextBox.Text;
         }
 
+        private void OnColorChanged(object sender, RoutedEventArgs e)
+        {
+            _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush((sender as PortableColorPicker)?.SelectedColor ?? Colors.Black));
+        }
     }
 }
