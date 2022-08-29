@@ -42,11 +42,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="files\Font Awesome 6 Brands-Regular-400.otf" />
+    <None Remove="files\Font Awesome 6 Free-Regular-400.otf" />
+    <None Remove="files\Font Awesome 6 Free-Solid-900.otf" />
     <None Remove="logo.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="logo.ico" />
+    <Resource Include="files\Font Awesome 6 Brands-Regular-400.otf" />
+    <Resource Include="files\Font Awesome 6 Free-Regular-400.otf" />
+    <Resource Include="files\Font Awesome 6 Free-Solid-900.otf" />
     <Resource Include="logo.png" />
   </ItemGroup>
 
