@@ -6,6 +6,7 @@
           xmlns:local="clr-namespace:DnDStoryWriterHalper.Components"
           xmlns:fa="http://schemas.fontawesome.io/icons/"
           xmlns:converters="clr-namespace:DnDStoryWriterHalper.Services.Converters"
+          xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
           mc:Ignorable="d"
           Title="LinkSettingDialogWindow" Height="190" Width="412" ResizeMode="NoResize">
     <Grid>
@@ -30,7 +31,7 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Height="20" Icon="{Binding Converter={StaticResource IconConverter}}" Margin="0,0,10,0"/>
+                        <Label Height="20" fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}}" Margin="0,0,10,0"/>
                         <TextBlock Text="{Binding Name}"/>
                         <TextBlock Text="{Binding Guid}" FontSize="7"/>
                     </StackPanel>

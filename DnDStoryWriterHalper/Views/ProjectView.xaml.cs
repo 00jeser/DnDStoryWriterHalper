@@ -14,11 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DnDStoryWriterHalper.Components;
+using DnDStoryWriterHalper.Components.Helpers.FontAwesome;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
-using FontAwesome.WPF;
 using Microsoft.Win32;
-using FontAwesome = FontAwesome.WPF.FontAwesome;
 
 namespace DnDStoryWriterHalper.Views
 {
@@ -36,6 +35,8 @@ namespace DnDStoryWriterHalper.Views
             foreach (var addon in Directory.GetDirectories(path))
             {
                 var addonName = addon.Split('\\').Last();
+                var l = new Label(){ VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
+                ImageAwesome.SetFontAwesome(l, Symbols.squarePlus);
                 MenuItem addonItem = new MenuItem()
                 {
                     Header = new StackPanel()
@@ -43,11 +44,13 @@ namespace DnDStoryWriterHalper.Views
                         Orientation = Orientation.Horizontal,
                         Children =
                         {
-                            new ImageAwesome() {Icon = FontAwesomeIcon.PlusSquare, VerticalAlignment = VerticalAlignment.Center, Height = 20, Margin = new Thickness(0,0,10,0)},
+                            l,
                             new TextBlock() {Text = addonName}
                         }
                     }
                 };
+                var l2 = new Label(){ VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
+                ImageAwesome.SetFontAwesome(l2, Symbols.squarePlus);
                 MenuItem addonItem2 = new MenuItem()
                 {
                     Header = new StackPanel()
@@ -55,7 +58,7 @@ namespace DnDStoryWriterHalper.Views
                         Orientation = Orientation.Horizontal,
                         Children =
                         {
-                            new ImageAwesome() {Icon = FontAwesomeIcon.PlusSquare, VerticalAlignment = VerticalAlignment.Center, Height = 20, Margin = new Thickness(0,0,10,0)},
+                            l2,
                             new TextBlock() {Text = addonName}
                         }
                     }

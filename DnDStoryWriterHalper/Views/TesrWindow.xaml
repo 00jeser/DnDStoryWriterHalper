@@ -7,6 +7,7 @@
         xmlns:netCore="clr-namespace:CustomChromeLibrary.WPF.NetCore;assembly=CustomChromeLibrary.WPF.NetCore"
         xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
         StateChanged="Window_OnStateChanged"
@@ -86,13 +87,13 @@
     <Grid Background="{x:Null}">
         <StackPanel Background="{x:Null}" Height="33" VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Height="33" Width="46" WindowChrome.IsHitTestVisibleInChrome="True">
-                <fa:ImageAwesome Foreground="Black" Icon="WindowMinimize" VerticalAlignment="Bottom"/>
+                <Label Foreground="Black" fontAwesome:ImageAwesome.FontAwesome="WindowMinimize" VerticalAlignment="Bottom"/>
             </Button>
             <Button Height="33" Width="46" WindowChrome.IsHitTestVisibleInChrome="True">
-                <fa:ImageAwesome Foreground="Black" Icon="WindowMaximize"/>
+                <Label Foreground="Black" fontAwesome:ImageAwesome.FontAwesome="WindowMaximize"/>
             </Button>
             <Button Style="{StaticResource Close}" Height="33" Width="47" WindowChrome.IsHitTestVisibleInChrome="True">
-                <fa:ImageAwesome Foreground="Black" Icon="Crosshairs"/>
+                <Label Foreground="Black" fontAwesome:ImageAwesome.FontAwesome="Crosshairs"/>
             </Button>
         </StackPanel>
     </Grid>

@@ -7,6 +7,7 @@
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:colorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+             xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
              mc:Ignorable="d" >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -92,7 +93,7 @@
                 <hc:ButtonGroup Margin="3">
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetPen">
                         <RadioButton.Content>
-                            <fa:ImageAwesome Icon="Pencil"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Pencil"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Рисовать" PlacementType="BottomLeft"/>
@@ -100,7 +101,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetSelect" IsChecked="True">
                         <RadioButton.Content>
-                            <fa:ImageAwesome Icon="CircleThin"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Circle"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Выбрать" PlacementType="BottomLeft"/>
@@ -108,7 +109,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetErace">
                         <RadioButton.Content>
-                            <fa:ImageAwesome Icon="Eraser"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Eraser"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Стереть" PlacementType="BottomLeft"/>
@@ -117,8 +118,8 @@
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetEraceAll">
                         <RadioButton.Content>
                             <Grid>
-                                <fa:ImageAwesome Icon="Eraser" Margin="10 0 0 10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                                <fa:ImageAwesome Icon="ArrowLeft" Margin="0 15 15 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                <Label fontAwesome:ImageAwesome.FontAwesome="Eraser" Margin="10 0 0 10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                                <Label fontAwesome:ImageAwesome.FontAwesome="ArrowLeft" Margin="0 15 15 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
                             </Grid>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
@@ -127,7 +128,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetNone">
                         <RadioButton.Content>
-                            <fa:ImageAwesome Icon="DotCircleOutline"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="arrowPointer"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Ничего" PlacementType="BottomLeft"/>

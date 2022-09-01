@@ -7,6 +7,7 @@
       xmlns:fa="http://schemas.fontawesome.io/icons/"
       xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
       xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
       mc:Ignorable="d" >
     <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
         <StackPanel.Resources>
@@ -19,13 +20,13 @@
             </Style>
         </StackPanel.Resources>
         <Button Command="{Binding NewCommand}" CommandParameter="{Binding }" ToolTip="новый">
-            <fa:ImageAwesome Icon="File" Margin="4"/>
+            <Label fontAwesome:ImageAwesome.FontAwesome="File" Margin="4" FontSize="25"/>
         </Button>
         <Button Command="{Binding LoadCommand}" CommandParameter="{Binding }" ToolTip="открыть">
-            <fa:ImageAwesome Icon="FolderOpen" Margin="4"/>
+            <Label fontAwesome:ImageAwesome.FontAwesome="FolderOpen" Margin="4" FontSize="25"/>
         </Button>
         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding }" ToolTip="сохранить">
-            <fa:ImageAwesome Icon="Save" Margin="4"/>
+            <Label fontAwesome:ImageAwesome.FontAwesome="floppyDisk" Margin="4" FontSize="25"/>
         </Button>
     </StackPanel>
 </Grid>

@@ -9,6 +9,7 @@
       xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
       xmlns:converters="clr-namespace:DnDStoryWriterHalper.Services.Converters"
       xmlns:hc="https://handyorg.github.io/handycontrol"
+      xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
       mc:Ignorable="d" Background="Transparent">
     <Grid.Resources>
         <converters:PageObjectToAwesomeFontIconConverter x:Key="IconConverter"/>
@@ -48,43 +49,43 @@
             </ContextMenu>
             <HierarchicalDataTemplate DataType="{x:Type models:Dirrectory}" ItemsSource="{Binding Content}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource DirrectoryContextMenu}">
-                    <fa:ImageAwesome Icon="Folder" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5" Foreground="#BABA00"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="Folder" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5" Foreground="#BABA00"/>
                     <components:EditableTextBlock Text="{Binding NameProperty, Mode=TwoWay}" VerticalAlignment="Center" FontSize="23" FontStyle="Italic" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:TextPage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}, Mode=OneTime}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:ImagePage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:BrowserPage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:CanvasPage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:AddonPage}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="{Binding Converter={StaticResource IconConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5"/>
                     <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <HierarchicalDataTemplate DataType="{x:Type models:FilesContainer}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="100" ContextMenu="{StaticResource PageContextMenu}">
-                    <fa:ImageAwesome Icon="File" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5" Opacity="0.5"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="File" VerticalAlignment="Center" HorizontalAlignment="Left" Height="15" Margin="5, 5" Opacity="0.5"/>
                     <TextBlock Text="{Binding Name}" FontSize="23" ContextMenu="{StaticResource PageContextMenu}" Margin="0,0,5,0"/>
                 </StackPanel>
             </HierarchicalDataTemplate>

@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime"
                     xmlns:fa="http://schemas.fontawesome.io/icons/"
-                    xmlns:helpers="clr-namespace:DnDStoryWriterHalper.Styles.Helpers">
+                    xmlns:helpers="clr-namespace:DnDStoryWriterHalper.Styles.Helpers"
+                    xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome">
     <!--https://github.com/Kinnara/ModernWpf/blob/master/ModernWpf/Styles/TreeView.xaml-->
     <system:Double x:Key="TreeViewItemMinHeight">32</system:Double>
 
@@ -74,24 +75,33 @@
                                     IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
                                     Style="{StaticResource ExpandCollapseToggleStyle}">
                                     <Grid>
-                                        <fa:ImageAwesome
+                                        <Label
                                             x:Name="CollapsedGlyph"
                                             Width="12"
                                             Height="12"
+                                            FontSize="12"
+                                            Margin="0"
+                                            Padding="0"
                                             Visibility="Collapsed"
-                                            Icon="ChevronRight"
+                                            fontAwesome:ImageAwesome.FontAwesome="ChevronRight"
                                             VerticalAlignment="Center"
-                                            IsHitTestVisible="False"
-                                            Rotation="0"/>
-                                        <fa:ImageAwesome
+                                            IsHitTestVisible="False"/>
+                                        <Label
                                             x:Name="ExpandedGlyph"
                                             Width="12"
                                             Height="12"
+                                            FontSize="12"
+                                            Margin="0"
+                                            Padding="0"
                                             Visibility="Collapsed"
-                                            Icon="ChevronRight"
+                                            fontAwesome:ImageAwesome.FontAwesome="ChevronRight"
                                             VerticalAlignment="Center"
                                             IsHitTestVisible="False"
-                                            Rotation="45"/>
+                                            >
+                                            <Label.RenderTransform>
+                                                <RotateTransform Angle="45"/>
+                                            </Label.RenderTransform>
+                                        </Label>
                                     </Grid>
                                 </ToggleButton>
 

@@ -7,6 +7,7 @@
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:colorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+             xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -45,38 +46,38 @@
             <hc:ButtonGroup HorizontalAlignment="Left" Margin="4 2">
                 <Button Command="EditingCommands.ToggleBold" 
                     CommandTarget="{Binding ElementName=_richTextBox}">
-                    <fa:ImageAwesome Margin="3" Icon="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    <Label Margin="3" fontAwesome:ImageAwesome.FontAwesome="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
                 </Button>
                 <Button Command="EditingCommands.ToggleItalic" 
                         CommandTarget="{Binding ElementName=_richTextBox}">
-                    <fa:ImageAwesome Margin="3" Icon="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Label Margin="3" fontAwesome:ImageAwesome.FontAwesome="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
             </hc:ButtonGroup>
             <hc:ButtonGroup HorizontalAlignment="Left" Margin="4 2">
                 <Button Command="EditingCommands.ToggleBullets" 
                         CommandTarget="{Binding ElementName=_richTextBox}">
-                    <fa:ImageAwesome Margin="3" Icon="ListUl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Label Margin="3" fontAwesome:ImageAwesome.FontAwesome="ListUl" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Button>
             </hc:ButtonGroup>
             <hc:ButtonGroup HorizontalAlignment="Left" Margin="2">
                 <Button Command="EditingCommands.IncreaseFontSize" 
                     CommandTarget="{Binding ElementName=_richTextBox}">
                     <Grid Margin="3">
-                        <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6 3 0 0"/>
-                        <fa:ImageAwesome Icon="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
+                        <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="6 3 0 0"/>
+                        <Label fontAwesome:ImageAwesome.FontAwesome="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
                     </Grid>
                 </Button>
                 <Button Command="EditingCommands.DecreaseFontSize" 
                     CommandTarget="{Binding ElementName=_richTextBox}">
                     <Grid Margin="3">
-                        <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5 2 0 0"/>
-                        <fa:ImageAwesome Icon="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
+                        <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5 2 0 0"/>
+                        <Label fontAwesome:ImageAwesome.FontAwesome="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="10" Height="10"/>
                     </Grid>
                 </Button>
             </hc:ButtonGroup>
             <hc:ButtonGroup HorizontalAlignment="Left" Margin="2">
                 <Button Click="AddHyperLink">
-                    <fa:ImageAwesome Margin="3" Icon="Link"/>
+                    <Label Margin="3" fontAwesome:ImageAwesome.FontAwesome="Link"/>
                 </Button>
             </hc:ButtonGroup>
             <colorPicker:PortableColorPicker Width="50" ColorChanged="OnColorChanged"/>
@@ -85,33 +86,33 @@
             <Button Command="EditingCommands.ToggleBold" 
                     CommandTarget="{Binding ElementName=_richTextBox}"
                     Style="{StaticResource ChangeButton}">
-                <fa:ImageAwesome Icon="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Label fontAwesome:ImageAwesome.FontAwesome="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
             </Button>
             <Button Command="EditingCommands.ToggleItalic" 
                     CommandTarget="{Binding ElementName=_richTextBox}"
                     Style="{StaticResource ChangeButton}">
-                <fa:ImageAwesome Icon="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <Label fontAwesome:ImageAwesome.FontAwesome="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Button>
             <Button Command="EditingCommands.IncreaseFontSize" 
                     CommandTarget="{Binding ElementName=_richTextBox}"
                     Style="{StaticResource ChangeButton}">
                 <Grid>
-                    <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <fa:ImageAwesome Icon="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
                 </Grid>
             </Button>
             <Button Command="EditingCommands.DecreaseFontSize" 
                     CommandTarget="{Binding ElementName=_richTextBox}"
                     Style="{StaticResource ChangeButton}">
                 <Grid>
-                    <fa:ImageAwesome Icon="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <fa:ImageAwesome Icon="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
                 </Grid>
             </Button>
             <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColorChanged="ColorPicker_OnSelectedColorChanged"/>
             <Button Click="AddHyperLink"
                     Style="{StaticResource ChangeButton}">
-                <fa:ImageAwesome Icon="Link"/>
+                <Label fontAwesome:ImageAwesome.FontAwesome="Link"/>
             </Button>
         </StackPanel>-->
     </Grid>

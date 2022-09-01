@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
+using DnDStoryWriterHalper.Components.Helpers.FontAwesome;
 using DnDStoryWriterHalper.Models;
-using FontAwesome.WPF;
 
 namespace DnDStoryWriterHalper.Services.Converters
 {
@@ -17,12 +17,12 @@ namespace DnDStoryWriterHalper.Services.Converters
         {
             return value switch
             {
-                TextPage => FontAwesomeIcon.AlignJustify,
-                ImagePage => FontAwesomeIcon.Image,
-                BrowserPage => FontAwesomeIcon.Globe,
-                AddonPage => FontAwesomeIcon.PlusSquare,
-                CanvasPage => FontAwesomeIcon.PencilSquare,
-                _ => FontAwesomeIcon.QuestionCircle
+                TextPage => Symbols.alignJustify,
+                ImagePage => Symbols.image,
+                BrowserPage => Symbols.globe,
+                AddonPage => Symbols.squarePlus,
+                CanvasPage => Symbols.pencil,
+                _ => Symbols.circleQuestion
             };
         }
 
