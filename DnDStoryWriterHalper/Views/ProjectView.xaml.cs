@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ using DnDStoryWriterHalper.Components.Helpers.FontAwesome;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
 using Microsoft.Win32;
+using Path = System.IO.Path;
 
 namespace DnDStoryWriterHalper.Views
 {
@@ -34,8 +36,18 @@ namespace DnDStoryWriterHalper.Views
             var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Addons");
             foreach (var addon in Directory.GetDirectories(path))
             {
+                var metadataFilePath = Path.Combine(addon, "metadata.json");
+                Dictionary<string, string>? metadata;
+                if (File.Exists(metadataFilePath))
+                {
+                    metadata = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(metadataFilePath));
+                }
+                else
+                {
+                    continue;
+                }
                 var addonName = addon.Split('\\').Last();
-                var l = new Label(){ VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
+                var l = new Label() { VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
                 ImageAwesome.SetFontAwesome(l, Symbols.squarePlus);
                 MenuItem addonItem = new MenuItem()
                 {
@@ -45,11 +57,11 @@ namespace DnDStoryWriterHalper.Views
                         Children =
                         {
                             l,
-                            new TextBlock() {Text = addonName}
+                            new TextBlock() {Text = metadata?["name"]??addonName}
                         }
                     }
                 };
-                var l2 = new Label(){ VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
+                var l2 = new Label() { VerticalAlignment = VerticalAlignment.Center, Margin = new Thickness(0, 0, 10, 0), FontSize = 19 };
                 ImageAwesome.SetFontAwesome(l2, Symbols.squarePlus);
                 MenuItem addonItem2 = new MenuItem()
                 {
@@ -59,32 +71,42 @@ namespace DnDStoryWriterHalper.Views
                         Children =
                         {
                             l2,
-                            new TextBlock() {Text = addonName}
+                            new TextBlock() {Text = metadata?["name"]??addonName}
                         }
                     }
                 };
                 foreach (var addonPage in Directory.GetDirectories(addon))
                 {
+                    Dictionary<string, string>? pageMetadata;
+                    var pageMetadataPath = Path.Combine(addonPage, "metadata.json");
+                    if (File.Exists(pageMetadataPath))
+                    {
+                        pageMetadata = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(pageMetadataPath));
+                    }
+                    else
+                    {
+                        continue;
+                    }
                     var pageName = addonPage.Split('\\').Last();
                     if (Directory.GetFiles(addonPage).Any(x => x.EndsWith("index.html")))
                     {
                         var item = new MenuItem()
                         {
-                            Header = pageName
+                            Header = pageMetadata?["name"] ?? addonName,
                         };
-                        item.Click += (o, e) => AddAddonPage(addonName, pageName, null);
+                        item.Click += (o, e) => AddAddonPage(addonName, pageName, null, pageMetadata?["default name"]);
                         addonItem.Items.Add(item);
                         var item2 = new MenuItem()
                         {
-                            Header = pageName,
+                            Header = pageMetadata?["name"] ?? addonName,
                         };
                         item2.SetBinding(MenuItem.CommandParameterProperty, new Binding());
                         item2.Click += (o, e) => AddAddonPage(addonName, pageName, (o as MenuItem).CommandParameter);
                         addonItem2.Items.Add(item2);
                     }
                 }
-                ((Resources["TreeContextMenu"] as ContextMenu).Items[0] as MenuItem).Items.Add(addonItem);
-                ((Resources["DirrectoryContextMenu"] as ContextMenu).Items[0] as MenuItem).Items.Add(addonItem2);
+                ((Resources["TreeContextMenu"] as ContextMenu)?.Items[0] as MenuItem)?.Items.Add(addonItem);
+                ((Resources["DirrectoryContextMenu"] as ContextMenu)?.Items[0] as MenuItem)?.Items.Add(addonItem2);
             }
         }
 
@@ -192,9 +214,9 @@ namespace DnDStoryWriterHalper.Views
             }
         }
 
-        private void AddAddonPage(string addon, string page, object dir)
+        private void AddAddonPage(string addon, string page, object dir, string? pageName = null)
         {
-            ProjectService.Instance.AddPageOrDirrecory(new AddonPage { PluginName = addon, PageName = page, Name = "AddonPage", Content = "lol"}, dir);
+            ProjectService.Instance.AddPageOrDirrecory(new AddonPage { PluginName = addon, PageName = page, Name = pageName ?? "AddonPage", Content = "" }, dir);
         }
 
         private void AddCanvasPage(object sender, RoutedEventArgs e)
