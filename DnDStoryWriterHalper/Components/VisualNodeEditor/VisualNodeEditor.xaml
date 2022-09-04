@@ -61,7 +61,7 @@
                                StrokeCollected="Ink_OnStrokeCollected" 
                                StrokeErased="Ink_OnStrokeErased" 
                                SelectionMoved="Ink_OnSelectionMoved" SelectionResized="Ink_OnSelectionResized"
-                               Initialized="Ink_OnInitialized">
+                               Initialized="Ink_OnInitialized" SelectionChanged="Ink_OnSelectionChanged">
                         <InkCanvas.Background>
                             <DrawingBrush Viewport="0,0,0.002,0.002" TileMode="Tile">
                                 <DrawingBrush.Drawing>
@@ -93,7 +93,7 @@
                 <hc:ButtonGroup Margin="3">
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetPen">
                         <RadioButton.Content>
-                            <Label fontAwesome:ImageAwesome.FontAwesome="Pencil"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Pencil" FontSize="20"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Рисовать" PlacementType="BottomLeft"/>
@@ -101,7 +101,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetSelect" IsChecked="True">
                         <RadioButton.Content>
-                            <Label fontAwesome:ImageAwesome.FontAwesome="Circle"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Circle" FontSize="20"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Выбрать" PlacementType="BottomLeft"/>
@@ -109,7 +109,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetErace">
                         <RadioButton.Content>
-                            <Label fontAwesome:ImageAwesome.FontAwesome="Eraser"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="Eraser" FontSize="20"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Стереть" PlacementType="BottomLeft"/>
@@ -118,8 +118,8 @@
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetEraceAll">
                         <RadioButton.Content>
                             <Grid>
-                                <Label fontAwesome:ImageAwesome.FontAwesome="Eraser" Margin="10 0 0 10" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-                                <Label fontAwesome:ImageAwesome.FontAwesome="ArrowLeft" Margin="0 15 15 0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                <Label fontAwesome:ImageAwesome.FontAwesome="Eraser" Margin="10 0 0 10" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="15"/>
+                                <Label fontAwesome:ImageAwesome.FontAwesome="ArrowLeft" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="15"/>
                             </Grid>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
@@ -128,7 +128,7 @@
                     </RadioButton>
                     <RadioButton Style="{DynamicResource RadioGroupItemSingle}" Click="SetNone">
                         <RadioButton.Content>
-                            <Label fontAwesome:ImageAwesome.FontAwesome="arrowPointer"/>
+                            <Label fontAwesome:ImageAwesome.FontAwesome="arrowPointer" FontSize="20"/>
                         </RadioButton.Content>
                         <hc:Poptip.Instance>
                             <hc:Poptip Content="Ничего" PlacementType="BottomLeft"/>
@@ -136,13 +136,16 @@
                     </RadioButton>
                 </hc:ButtonGroup>
                 <hc:Divider Orientation="Vertical" LineStroke="{DynamicResource DarkPrimaryBrush}" LineStrokeThickness="2" Margin="2"/>
-                <colorPicker:PortableColorPicker ColorChanged="ColorPicker_OnColorChanged" x:Name="ColorPicker" Width="50">
+                <colorPicker:PortableColorPicker ColorChanged="ColorPicker_OnColorChanged" x:Name="ColorPicker" Width="50"  Height="32" Margin="0 0 3 0">
                     <colorPicker:PortableColorPicker.Resources>
                     </colorPicker:PortableColorPicker.Resources>
                 </colorPicker:PortableColorPicker>
-                <hc:NumericUpDown Value="15" Minimum="5" Maximum="50" x:Name="StrokeWidth" ValueChanged="StrokeWidth_OnValueChanged"/>
-                <hc:ButtonGroup>
-
+                <hc:NumericUpDown Value="15" Minimum="5" Maximum="50" x:Name="StrokeWidth" ValueChanged="StrokeWidth_OnValueChanged" Height="32"/>
+                <hc:Divider Orientation="Vertical" LineStroke="{DynamicResource DarkPrimaryBrush}" LineStrokeThickness="2" Margin="2"/>
+                <hc:ButtonGroup VerticalAlignment="Stretch">
+                    <Button VerticalAlignment="Stretch" x:Name="AddLinkBtn" IsEnabled="False" Click="AddLinkBtn_OnClick">
+                        <Label fontAwesome:ImageAwesome.FontAwesome="link" FontSize="20"/>
+                    </Button>
                 </hc:ButtonGroup>
                 <hc:Divider Orientation="Vertical" LineStroke="{DynamicResource DarkPrimaryBrush}" LineStrokeThickness="2" Margin="2"/>
                 <hc:ButtonGroup>

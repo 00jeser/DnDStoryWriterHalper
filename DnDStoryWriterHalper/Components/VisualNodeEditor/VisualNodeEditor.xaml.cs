@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DnDStoryWriterHalper.Extensions;
+using DnDStoryWriterHalper.Services;
 using HandyControl.Data;
 
 namespace DnDStoryWriterHalper.Components.VisualNodeEditor
@@ -98,10 +99,10 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 switch (figureData[0])
                 {
                     case "0":
-                        c = new Rectangle() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()) };
+                        c = new Rectangle() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()), Tag = figureData.Last() };
                         break;
                     case "1":
-                        c = new Ellipse() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()) };
+                        c = new Ellipse() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()), Tag = figureData.Last() };
                         break;
                     case "2":
                         c = new EditableTextBlock { MultiLine = true, FontSize = 20 };
@@ -110,6 +111,10 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 }
                 c.Width = double.Parse(figureData[2]);
                 c.Height = double.Parse(figureData[3]);
+                c.PreviewMouseDown += (sender, args) =>
+                {
+                    NavigationEventsProvider.Instance.NavigateTo((sender as Shape).Tag.ToString());
+                };
                 InkCanvas.SetLeft(c, double.Parse(figureData[4]));
                 InkCanvas.SetTop(c, double.Parse(figureData[5]));
                 vne.ink.Children.Add(c);
@@ -335,6 +340,8 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 figures.Append(child switch
                 {
                     EditableTextBlock etb => etb.Text,
+                    Rectangle r => r.Tag?.ToString() ?? "",
+                    Ellipse e => e.Tag?.ToString() ?? "",
                     _ => ""
                 });
             }
@@ -372,6 +379,33 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
         {
             UpdateStrokesData();
             UpdateFiguresData();
+        }
+
+        private void Ink_OnSelectionChanged(object? sender, EventArgs e)
+        {
+            if (ink.GetSelectedElements().Count == 1 && ink.GetSelectedElements()[0] is Shape)
+            {
+                AddLinkBtn.IsEnabled = true;
+            }
+            else
+            {
+                AddLinkBtn.IsEnabled = false;
+            }
+        }
+
+        private void AddLinkBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SelectPageDialogWindow();
+            dialog.ShowDialog();
+            if (dialog.Result != null)
+            {
+                (ink.GetSelectedElements()[0] as Shape).Tag = dialog.Result.Guid;
+                UpdateFiguresData();
+                (ink.GetSelectedElements()[0] as Shape).PreviewMouseDown += (sender, args) =>
+                {
+                    NavigationEventsProvider.Instance.NavigateTo((sender as Shape).Tag.ToString());
+                };
+            }
         }
     }
 }

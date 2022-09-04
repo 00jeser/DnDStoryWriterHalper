@@ -90,6 +90,6 @@
     </Page>
   </ItemGroup>
 
-  <ProjectExtensions><VisualStudio><UserProperties addons_4vector_4metadata_1json__JsonSchema="https://appsemble.app/api.json" addons_4vector_4vectoreditor_4metadata_1json__JsonSchema="https://appsemble.app/api.json" /></VisualStudio></ProjectExtensions>
+  <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
 
 </Project>
