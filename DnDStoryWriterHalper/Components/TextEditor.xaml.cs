@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using ColorPicker;
 using DnDStoryWriterHalper.Services;
 using Microsoft.Win32;
-using RichTextBox = Xceed.Wpf.Toolkit.RichTextBox;
 
 namespace DnDStoryWriterHalper.Components
 {
@@ -85,7 +84,6 @@ namespace DnDStoryWriterHalper.Components
 
         private void _richTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            Text = _richTextBox.Text;
         }
 
         private void OnColorChanged(object sender, RoutedEventArgs e)
@@ -102,6 +100,11 @@ namespace DnDStoryWriterHalper.Components
         {
             _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty,
                 new SolidColorBrush((sender as PortableColorPicker)?.SelectedColor ?? Colors.Black));
+        }
+
+        private void _richTextBox_OnFormatedTextChanged(object? sender, EventArgs e)
+        {
+            Text = _richTextBox.FormatedText;
         }
     }
 }

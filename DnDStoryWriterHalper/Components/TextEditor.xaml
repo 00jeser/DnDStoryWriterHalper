@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DnDStoryWriterHalper.Components" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:DnDStoryWriterHalper.Components" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:fa="http://schemas.fontawesome.io/icons/"
              xmlns:hc="https://handyorg.github.io/handycontrol"
              xmlns:colorPicker="clr-namespace:ColorPicker;assembly=ColorPicker"
@@ -18,7 +19,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <xctk:RichTextBox Grid.Row="1" 
+        <local:TextedRichTextBox Grid.Row="1" 
                           x:Name="_richTextBox" 
                           FontSize="25" 
                           AcceptsTab="True" 
@@ -26,7 +27,8 @@
                           Background="Transparent" 
                           TextChanged="_richTextBox_OnTextChanged"
                           SelectionChanged="_richTextBox_OnSelectionChanged"
-                          SelectionBrush="Gray">
+                          SelectionBrush="Gray"
+                          FormatedTextChanged="_richTextBox_OnFormatedTextChanged">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0"/>
@@ -42,7 +44,7 @@
                 <CommandBinding Command="EditingCommands.IncreaseFontSize"/>
                 <CommandBinding Command="EditingCommands.DecreaseFontSize"/>
             </RichTextBox.CommandBindings>
-        </xctk:RichTextBox>
+        </local:TextedRichTextBox>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <hc:ButtonGroup HorizontalAlignment="Left" Margin="4 2">
                 <Button Command="EditingCommands.ToggleBold" 
