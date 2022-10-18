@@ -8,6 +8,6 @@ namespace DnDStoryWriterHalper.Models
 {
     public interface IDirrectoryComponent
     {
-        public string Name { get; }
+        public string? Name { get; }
     }
 }

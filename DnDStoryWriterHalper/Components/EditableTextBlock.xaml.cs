@@ -26,9 +26,11 @@ namespace DnDStoryWriterHalper.Components
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var tb = (d as EditableTextBlock);
-            tb.Block.Text = e.NewValue?.ToString();
-            tb.Box.Text = e.NewValue?.ToString();
+            if (d is EditableTextBlock tb)
+            {
+                tb.Block.Text = e.NewValue?.ToString();
+                tb.Box.Text = e.NewValue?.ToString();
+            }
         }
 
         public string Text

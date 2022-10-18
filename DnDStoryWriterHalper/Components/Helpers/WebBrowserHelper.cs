@@ -26,11 +26,9 @@ namespace DnDStoryWriterHalper.Components.Helpers
 
         public static void BindableSourcePropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
         {
-            WebBrowser browser = o as WebBrowser;
-            if (browser != null)
+            if (o is WebBrowser browser && e.NewValue is string uri)
             {
-                string uri = e.NewValue as string;
-                browser.Source = !String.IsNullOrEmpty(uri) ? new Uri(uri) : null;
+                browser.Source = !string.IsNullOrEmpty(uri) ? new Uri(uri) : null;
             }
         }
     }

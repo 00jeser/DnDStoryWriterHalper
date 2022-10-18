@@ -15,8 +15,13 @@ namespace DnDStoryWriterHalper.Models
         public string PageName { get; init; }
         public string Content { get; set; }
 
-        public AddonPage()
+        public AddonPage():this("AddonPage", "", "", ""){}
+        public AddonPage(string name, string pluginName, string pageName, string content)
         {
+            Name = name;
+            PluginName = pluginName;
+            PageName = pageName;
+            Content = content;
             Guid = System.Guid.NewGuid().ToString();
         }
     }

@@ -25,6 +25,7 @@
                           MouseDoubleClick="_richTextBox_OnMouseDoubleClick" 
                           Background="Transparent" 
                           TextChanged="_richTextBox_OnTextChanged"
+                          SelectionChanged="_richTextBox_OnSelectionChanged"
                           SelectionBrush="Gray">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
@@ -80,40 +81,7 @@
                     <Label Margin="3" fontAwesome:ImageAwesome.FontAwesome="Link"/>
                 </Button>
             </hc:ButtonGroup>
-            <colorPicker:PortableColorPicker Width="50" ColorChanged="OnColorChanged"/>
+            <colorPicker:PortableColorPicker x:Name="ColorPicker" Width="50" ColorChanged="OnColorChanged" PreviewMouseUp="ColorPicker_OnMouseUp"/>
         </StackPanel>
-        <!--<StackPanel Orientation="Horizontal" Margin="10">
-            <Button Command="EditingCommands.ToggleBold" 
-                    CommandTarget="{Binding ElementName=_richTextBox}"
-                    Style="{StaticResource ChangeButton}">
-                <Label fontAwesome:ImageAwesome.FontAwesome="Bold" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
-            </Button>
-            <Button Command="EditingCommands.ToggleItalic" 
-                    CommandTarget="{Binding ElementName=_richTextBox}"
-                    Style="{StaticResource ChangeButton}">
-                <Label fontAwesome:ImageAwesome.FontAwesome="Italic" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            </Button>
-            <Button Command="EditingCommands.IncreaseFontSize" 
-                    CommandTarget="{Binding ElementName=_richTextBox}"
-                    Style="{StaticResource ChangeButton}">
-                <Grid>
-                    <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Label fontAwesome:ImageAwesome.FontAwesome="AngleUp" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
-                </Grid>
-            </Button>
-            <Button Command="EditingCommands.DecreaseFontSize" 
-                    CommandTarget="{Binding ElementName=_richTextBox}"
-                    Style="{StaticResource ChangeButton}">
-                <Grid>
-                    <Label fontAwesome:ImageAwesome.FontAwesome="Font" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                    <Label fontAwesome:ImageAwesome.FontAwesome="AngleDown" HorizontalAlignment="Left" VerticalAlignment="Top" Width="15" Height="15"/>
-                </Grid>
-            </Button>
-            <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColorChanged="ColorPicker_OnSelectedColorChanged"/>
-            <Button Click="AddHyperLink"
-                    Style="{StaticResource ChangeButton}">
-                <Label fontAwesome:ImageAwesome.FontAwesome="Link"/>
-            </Button>
-        </StackPanel>-->
     </Grid>
 </UserControl>

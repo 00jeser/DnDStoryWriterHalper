@@ -38,14 +38,17 @@ namespace DnDStoryWriterHalper.Components
             var page = (e.NewValue as AddonPage);
             if (page == null || page.PageName == null || page.PluginName == null) 
                 return;
-            var av = (d as AddonViewer);
-            var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Addons", page.PluginName,
-                page.PageName, "index.html");
-            av.Browser.Load(path);
-            av.PageModel = page;
-            av.Js = new JsMethodsHandler(av);
-            av.IsLoading = true;
-            av.SetContent(page.Content);
+            if (d is AddonViewer av)
+            {
+                var path = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Addons",
+                    page.PluginName,
+                    page.PageName, "index.html");
+                av.Browser.Load(path);
+                av.PageModel = page;
+                av.Js = new JsMethodsHandler(av);
+                av.IsLoading = true;
+                av.SetContent(page.Content);
+            }
         }
 
         public AddonPage PageModelfp

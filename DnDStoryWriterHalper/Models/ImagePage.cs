@@ -20,6 +20,7 @@ namespace DnDStoryWriterHalper.Models
         {
             Name = "Изображение";
             Guid = System.Guid.NewGuid().ToString();
+            FileName = "";
         }
     }
 }

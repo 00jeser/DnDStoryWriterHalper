@@ -37,23 +37,27 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 )
             );
 
-        private static void StrokesDataChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void StrokesDataChanged(DependencyObject _d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d as VisualNodeEditor).NeedToUpdateWhenDataChenged)
+            if (_d is VisualNodeEditor d)
             {
-                (d as VisualNodeEditor).NeedToUpdateWhenDataChenged = true;
-                return;
-            }
+                if (!d.NeedToUpdateWhenDataChenged)
+                {
+                    d.NeedToUpdateWhenDataChenged = true;
+                    return;
+                }
 
-            if (e.NewValue == "")
-            {
-                (d as VisualNodeEditor).ink.Strokes = new StrokeCollection();
-                return;
+                if (e.NewValue == null || e.NewValue is not string || string.IsNullOrWhiteSpace(e.NewValue as string))
+                {
+                    d.ink.Strokes = new StrokeCollection();
+                    return;
+                }
+
+                using var stream = new MemoryStream();
+                stream.Write(Convert.FromBase64String(e.NewValue.ToString()??""));
+                stream.Seek(0, SeekOrigin.Begin);
+                d.ink.Strokes = new StrokeCollection(stream);
             }
-            using var stream = new MemoryStream();
-            stream.Write(Convert.FromBase64String(e.NewValue.ToString()));
-            stream.Seek(0, SeekOrigin.Begin);
-            (d as VisualNodeEditor).ink.Strokes = new StrokeCollection(stream);
         }
 
         public string StrokesData
@@ -76,48 +80,60 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
                 )
             );
 
-        private static void FigureDataPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void FigureDataPropertyChangedCallback(DependencyObject _d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(d as VisualNodeEditor).NeedToUpdateWhenDataChenged)
+            if (_d is VisualNodeEditor d)
             {
-                (d as VisualNodeEditor).NeedToUpdateWhenDataChenged = true;
-                return;
-            }
-            var vne = d as VisualNodeEditor;
-            vne.ink.Children.Clear();
-            if (e.NewValue == null || e.NewValue is not string)
-            {
-                return;
-            }
-            string[] figures = e.NewValue.ToString().Split('|');
-            foreach (var figure in figures)
-            {
-                string[] figureData = figure.Split(';'); // type;color;width;height;x;y;data
-                if (figureData.Length != 7)
-                    continue;
-                FrameworkElement c = new FrameworkElement();
-                switch (figureData[0])
+                if (!d.NeedToUpdateWhenDataChenged)
                 {
-                    case "0":
-                        c = new Rectangle() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()), Tag = figureData.Last() };
-                        break;
-                    case "1":
-                        c = new Ellipse() { Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()), Tag = figureData.Last() };
-                        break;
-                    case "2":
-                        c = new EditableTextBlock { MultiLine = true, FontSize = 20 };
-                        (c as EditableTextBlock).Text = figureData[6];
-                        break;
+                    d.NeedToUpdateWhenDataChenged = true;
+                    return;
                 }
-                c.Width = double.Parse(figureData[2]);
-                c.Height = double.Parse(figureData[3]);
-                c.PreviewMouseDown += (sender, args) =>
+                d.ink.Children.Clear();
+                if (e.NewValue == null || e.NewValue is not string)
                 {
-                    NavigationEventsProvider.Instance.NavigateTo((sender as Shape).Tag.ToString());
-                };
-                InkCanvas.SetLeft(c, double.Parse(figureData[4]));
-                InkCanvas.SetTop(c, double.Parse(figureData[5]));
-                vne.ink.Children.Add(c);
+                    return;
+                }
+
+                string[] figures = (e.NewValue.ToString()?.Split('|')) ?? Array.Empty<string>();
+                foreach (var figure in figures)
+                {
+                    string[] figureData = figure.Split(';'); // type;color;width;height;x;y;data
+                    if (figureData.Length != 7)
+                        continue;
+                    FrameworkElement c = new FrameworkElement();
+                    switch (figureData[0])
+                    {
+                        case "0":
+                            c = new Rectangle()
+                            {
+                                Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()),
+                                Tag = figureData.Last()
+                            };
+                            break;
+                        case "1":
+                            c = new Ellipse()
+                            {
+                                Fill = new SolidColorBrush(Convert.ToInt64(figureData[1], 16).ToARGBColor()),
+                                Tag = figureData.Last()
+                            };
+                            break;
+                        case "2":
+                            c = new EditableTextBlock {MultiLine = true, FontSize = 20};
+                            ((EditableTextBlock)c).Text = figureData[6];
+                            break;
+                    }
+
+                    c.Width = double.Parse(figureData[2]);
+                    c.Height = double.Parse(figureData[3]);
+                    c.PreviewMouseDown += (sender, args) =>
+                    {
+                        NavigationEventsProvider.Instance.NavigateTo(((Shape)sender)?.Tag?.ToString() ?? "");
+                    };
+                    InkCanvas.SetLeft(c, double.Parse(figureData[4]));
+                    InkCanvas.SetTop(c, double.Parse(figureData[5]));
+                    d.ink.Children.Add(c);
+                }
             }
         }
 
@@ -282,11 +298,6 @@ namespace DnDStoryWriterHalper.Components.VisualNodeEditor
         private void RectangleF_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
             DragDrop.DoDragDrop(this, sender, DragDropEffects.Move);
-        }
-
-        private void LineF_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            DragDrop.DoDragDrop(this, (sender as Grid).Children[0], DragDropEffects.Move);
         }
 
         private void TextBlockF_OnMouseDown(object sender, MouseButtonEventArgs e)

@@ -21,7 +21,7 @@ namespace DnDStoryWriterHalper.Components.Handlers
                 {
                     var fd = new FileSelectDialogWindow();
                     fd.ShowDialog();
-                    file = fd.Result.Name;
+                    file = fd.Result?.Name;
                 }
             );
             if (file == null)

@@ -34,7 +34,8 @@ namespace DnDStoryWriterHalper.Services
 
         public void Execute(object? parameter)
         {
-            func(parameter);
+            if(parameter != null)
+                func(parameter);
         }
 
         public event EventHandler? CanExecuteChanged;

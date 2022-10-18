@@ -51,7 +51,7 @@ namespace DnDStoryWriterHalper.Components
                     new Uri(UrlBox.Text);
                     okBtn.IsEnabled = true;
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     okBtn.IsEnabled = false;
                 }
@@ -64,7 +64,7 @@ namespace DnDStoryWriterHalper.Components
                     new Uri("https://" + UrlBox.Text);
                     okBtn.IsEnabled = true;
                 }
-                catch (Exception exception)
+                catch (Exception)
                 {
                     okBtn.IsEnabled = false;
                 }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using ColorPicker;
 using DnDStoryWriterHalper.Services;
 using Microsoft.Win32;
+using RichTextBox = Xceed.Wpf.Toolkit.RichTextBox;
 
 namespace DnDStoryWriterHalper.Components
 {
@@ -26,14 +27,13 @@ namespace DnDStoryWriterHalper.Components
 
         private static void TextPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as TextEditor)._richTextBox.Text = e.NewValue as string;
+            if (d is TextEditor te)
+                te._richTextBox.Text = e.NewValue as string;
         }
-
-        public event EventHandler OpenLink;
 
         public string Text
         {
-            get => (string) GetValue(TextProperty);
+            get => (string)GetValue(TextProperty);
             set => SetValue(TextProperty, value);
         }
 
@@ -44,7 +44,7 @@ namespace DnDStoryWriterHalper.Components
 
         private void ColorPicker_OnSelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
-            _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(e.NewValue?? Colors.Black));
+            _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush(e.NewValue ?? Colors.Black));
         }
 
         private void AddHyperLink(object sender, RoutedEventArgs e)
@@ -53,11 +53,11 @@ namespace DnDStoryWriterHalper.Components
             dialog.ShowDialog();
             (var text, var link) = dialog.result;
 
-            if(string.IsNullOrWhiteSpace(text) && string.IsNullOrWhiteSpace(link))
+            if (string.IsNullOrWhiteSpace(text) && string.IsNullOrWhiteSpace(link))
                 return;
             var h = new Hyperlink();
             var r = new Run("[" + text + "]");
-            r.Foreground = new SolidColorBrush(Color.FromArgb(255,0,233,215));
+            r.Foreground = new SolidColorBrush(Color.FromArgb(255, 0, 233, 215));
             h.Inlines.Add(r);
             h.NavigateUri = new Uri("dnd://" + link.Replace(' ', '_'));
 
@@ -79,7 +79,7 @@ namespace DnDStoryWriterHalper.Components
             }
             catch (Exception)
             {
-                
+
             }
         }
 
@@ -90,7 +90,18 @@ namespace DnDStoryWriterHalper.Components
 
         private void OnColorChanged(object sender, RoutedEventArgs e)
         {
-            _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty, new SolidColorBrush((sender as PortableColorPicker)?.SelectedColor ?? Colors.Black));
+        }
+        private void _richTextBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is RichTextBox rtb)
+                if (rtb?.Selection.GetPropertyValue(TextElement.ForegroundProperty) is SolidColorBrush scBrush)
+                    ColorPicker.SelectedColor = scBrush.Color;
+        }
+
+        private void ColorPicker_OnMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            _richTextBox.Selection.ApplyPropertyValue(TextElement.ForegroundProperty,
+                new SolidColorBrush((sender as PortableColorPicker)?.SelectedColor ?? Colors.Black));
         }
     }
 }

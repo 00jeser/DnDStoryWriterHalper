@@ -16,18 +16,18 @@ namespace DnDStoryWriterHalper.Services
                 Url = url;
             }
         }
-        private static NavigationEventsProvider _instance;
+        private static NavigationEventsProvider? _instance;
 
         public static NavigationEventsProvider Instance
         {
-            get => _instance ?? (_instance = new NavigationEventsProvider());
+            get => _instance ??= new NavigationEventsProvider();
             set => _instance = value;
         }
 
 
         public event EventHandler <LinkEventArgs> LinkClicked;
 
-        public void NavigateTo(string guid, object sender = null)
+        public void NavigateTo(string guid, object? sender = null)
         {
             LinkClicked.Invoke(sender ?? this, new LinkEventArgs(guid));
         }
