@@ -28,7 +28,8 @@
                           TextChanged="_richTextBox_OnTextChanged"
                           SelectionChanged="_richTextBox_OnSelectionChanged"
                           SelectionBrush="Gray"
-                          FormatedTextChanged="_richTextBox_OnFormatedTextChanged">
+                          FormatedTextChanged="_richTextBox_OnFormatedTextChanged"
+                          VerticalScrollBarVisibility="Visible">
             <RichTextBox.Resources>
                 <Style TargetType="{x:Type Paragraph}">
                     <Setter Property="Margin" Value="0"/>

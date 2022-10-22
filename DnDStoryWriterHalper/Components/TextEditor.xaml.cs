@@ -27,7 +27,7 @@ namespace DnDStoryWriterHalper.Components
         private static void TextPropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is TextEditor te)
-                te._richTextBox.Text = e.NewValue as string;
+                te._richTextBox.FormatedText = e.NewValue as string;
         }
 
         public string Text
