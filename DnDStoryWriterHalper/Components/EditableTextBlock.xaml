@@ -17,7 +17,8 @@
                      TextInput="UIElement_OnTextInput"
                      TextChanged="Box_OnTextChanged"
                      MouseDoubleClick="Box_OnMouseDoubleClick"
-                     KeyDown="Box_OnKeyDown">
+                     KeyDown="Box_OnKeyDown"
+                     PreviewTextInput="Box_PreviewTextInput">
         </TextBox>
     </Grid>
 </UserControl>

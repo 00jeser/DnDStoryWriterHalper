@@ -59,6 +59,30 @@ namespace DnDStoryWriterHalper.Components
             set { SetValue(MultiLineProperty, value); }
         }
 
+
+
+
+        public string BlockedChars
+        {
+            get { return (string)GetValue(BlockedCharsProperty); }
+            set { SetValue(BlockedCharsProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for BlockedChars.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty BlockedCharsProperty =
+            DependencyProperty.Register("BlockedChars", typeof(string), typeof(EditableTextBlock), new PropertyMetadata("", BlockedCharsChanged));
+
+        private static void BlockedCharsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var etb = d as EditableTextBlock;
+            if (e.NewValue is string s)
+            {
+                etb.BlockedChars = s;
+            }
+        }
+
+
+
         //public static readonly DependencyProperty FontSizeProperty = DependencyProperty.Register(
         //    "FontSize", typeof(double), typeof(EditableTextBlock), new PropertyMetadata(default(double)));
 
@@ -120,6 +144,14 @@ namespace DnDStoryWriterHalper.Components
         private void Box_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             Text = (sender as TextBox).Text;
+        }
+
+        private void Box_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (BlockedChars.Contains(e.Text))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
