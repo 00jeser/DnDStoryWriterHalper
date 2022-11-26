@@ -20,8 +20,8 @@ namespace DnDStoryWriterHalper.Components
     /// </summary>
     public partial class EditableTextBlock : UserControl
     {
-        public readonly static DependencyProperty TextProperty = 
-            DependencyProperty.Register(nameof(Text), typeof(string), typeof(EditableTextBlock), 
+        public readonly static DependencyProperty TextProperty =
+            DependencyProperty.Register(nameof(Text), typeof(string), typeof(EditableTextBlock),
                 new PropertyMetadata("", PropertyChangedCallback));
 
         private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -55,7 +55,7 @@ namespace DnDStoryWriterHalper.Components
 
         public bool MultiLine
         {
-            get { return (bool) GetValue(MultiLineProperty); }
+            get { return (bool)GetValue(MultiLineProperty); }
             set { SetValue(MultiLineProperty, value); }
         }
 
@@ -78,6 +78,33 @@ namespace DnDStoryWriterHalper.Components
             if (e.NewValue is string s)
             {
                 etb.BlockedChars = s;
+            }
+        }
+
+
+        public enum ChangeModes
+        {
+            Always,
+            WhenDone
+        }
+
+
+        public ChangeModes ChangeMode
+        {
+            get { return (ChangeModes)GetValue(ChangeModeProperty); }
+            set { SetValue(ChangeModeProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ChangeMode.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ChangeModeProperty =
+            DependencyProperty.Register("ChangeMode", typeof(ChangeModes), typeof(EditableTextBlock), new PropertyMetadata(ChangeModes.Always, ChangeModeChanged));
+
+        private static void ChangeModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var etb = d as EditableTextBlock;
+            if (e.NewValue is ChangeModes s)
+            {
+                etb.ChangeMode = s;
             }
         }
 
@@ -108,11 +135,14 @@ namespace DnDStoryWriterHalper.Components
         {
             Box.Visibility = Visibility.Hidden;
             Block.Visibility = Visibility.Visible;
+            if(ChangeMode == ChangeModes.WhenDone) 
+                Text = Box.Text;
         }
 
         private void UIElement_OnTextInput(object sender, TextCompositionEventArgs e)
         {
-            Text = (sender as TextBox).Text;
+            if (ChangeMode == ChangeModes.Always)
+                Text = (sender as TextBox).Text;
         }
 
         private void Box_OnLostFocus(object sender, RoutedEventArgs e)
@@ -143,12 +173,13 @@ namespace DnDStoryWriterHalper.Components
 
         private void Box_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            Text = (sender as TextBox).Text;
+            if (ChangeMode == ChangeModes.Always)
+                Text = (sender as TextBox).Text;
         }
 
         private void Box_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (BlockedChars.Contains(e.Text))
+            if (BlockedChars.Contains(e.Text) || e.Text == "\t")
             {
                 e.Handled = true;
             }
