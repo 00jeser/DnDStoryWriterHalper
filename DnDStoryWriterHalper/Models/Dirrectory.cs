@@ -23,6 +23,7 @@ public class Dirrectory : ViewModelBase, IDirrectory
     [XmlArrayItem("filescontainer", typeof(FilesContainer))]
     [XmlArrayItem("addonpage", typeof(AddonPage))]
     [XmlArrayItem("canvaspage", typeof(CanvasPage))]
+    [XmlArrayItem("treepage", typeof(TreePage))]
     public ObservableCollection<object> Content { get; set; }
 
 

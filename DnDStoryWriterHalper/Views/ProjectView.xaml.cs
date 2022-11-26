@@ -226,5 +226,14 @@ namespace DnDStoryWriterHalper.Views
                 ProjectService.Instance.AddPageOrDirrecory(new CanvasPage(), mi.CommandParameter);
             }
         }
+
+        private void AddTreePage(object sender, RoutedEventArgs e)
+        {
+
+            if (sender is MenuItem mi)
+            {
+                ProjectService.Instance.AddPageOrDirrecory(new TreePage(), mi.CommandParameter);
+            }
+        }
     }
 }

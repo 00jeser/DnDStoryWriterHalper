@@ -20,6 +20,7 @@ namespace DnDStoryWriterHalper.Views.Pages
         public DataTemplate DirrecotoryDataTemplate { get; set; }
         public DataTemplate BrowserPageDataTemplate { get; set; }
         public DataTemplate CanvasPageDataTemplate { get; set; }
+        public DataTemplate TreePageDataTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
@@ -37,10 +38,12 @@ namespace DnDStoryWriterHalper.Views.Pages
                     return (new AddonPageDataTemplateCreator()).GetNewAddonDataTemplate();
                 case CanvasPage cp:
                     return CanvasPageDataTemplate;
+                case TreePage cp:
+                    return TreePageDataTemplate;
                 default:
                     return DefaultDataTemplate;
             }
         }
-        
+
     }
 }
