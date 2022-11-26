@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="DnDStoryWriterHalper.Components.VisualTreeEditor.VisualTreeEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DnDStoryWriterHalper.Components.VisualTreeEditor"
+             xmlns:components="clr-namespace:DnDStoryWriterHalper.Components"
+             xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Border BorderThickness="0 0 0 0" BorderBrush="Black">
+        <Grid Margin="10 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Line X1="0" X2="15" Y1="0" Y2="0" VerticalAlignment="Center" Fill="Black" Stroke="Black" HorizontalAlignment="Right" Visibility="{Binding IsHasNext}"/>
+            <Line X1="0" X2="15" Y1="0" Y2="0" Margin="-10 0 0 0" VerticalAlignment="Center" Fill="Black" Stroke="Black" HorizontalAlignment="Left" Visibility="{Binding IsHasPrevies}"/>
+            <Grid Margin="-10" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Background="Black" Width="1" Visibility="{Binding IsFirst}"/>
+                <Grid Background="Black" Grid.Row="1" Width="1" Visibility="{Binding IsLast}"/>
+            </Grid>
+            <Border Background="#1000" VerticalAlignment="Center" Margin="5 5 18 5" BorderThickness="1" BorderBrush="#5000">
+                <Grid>
+                    <components:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" BlockedChars="&quot;&amp;&apos;&lt;&gt;;()[]" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5 0 15 0" ChangeMode="WhenDone"/>
+                    <Button Padding="0" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="15" CommandParameter="{Binding}" Command="{Binding DelCommand}">
+                        <Label fontAwesome:ImageAwesome.FontAwesome="trashCan" Height="12" Foreground="DarkRed"/>
+                    </Button>
+                    <Button Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="15" CommandParameter="{Binding}" Command="{Binding UrlCommand}">
+                        <Label fontAwesome:ImageAwesome.FontAwesome="share" Height="12" Foreground="Black"/>
+                    </Button>
+                </Grid>
+            </Border>
+            <Button Width="15" Height="20" HorizontalAlignment="Right" Margin="0 22 0 0" Padding="0" Click="ButtonBase_OnClick">+</Button>
+            <ItemsControl ItemsSource="{Binding Children}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" IsTabStop="False">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:VisualTreeEditor Tree="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Left"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
+    </Border>
+</UserControl>
