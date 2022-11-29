@@ -125,10 +125,11 @@ namespace DnDStoryWriterHalper.Components
             ToggleToView();
         }
 
-        public void ToggleToEdit()
+        public async void ToggleToEdit()
         {
             Block.Visibility = Visibility.Hidden;
             Box.Visibility = Visibility.Visible;
+            await Task.Delay(100);
             Box.Focus();
             Box.CaretIndex = Box.Text.Length;
         }
@@ -161,6 +162,7 @@ namespace DnDStoryWriterHalper.Components
         {
             if (e.ClickCount == 2)
             {
+                Block.Focus();
                 ToggleToEdit();
             }
         }
@@ -185,6 +187,11 @@ namespace DnDStoryWriterHalper.Components
             {
                 e.Handled = true;
             }
+        }
+
+        private void Box_GotFocus(object sender, RoutedEventArgs e)
+        {
+            //ToggleToEdit();
         }
     }
 }

@@ -14,6 +14,7 @@
                        VerticalAlignment="Center"/>
         <TextBox x:Name="Box" 
                      LostFocus="Box_OnLostFocus" 
+                 GotFocus="Box_GotFocus"
                      TextInput="UIElement_OnTextInput"
                      TextChanged="Box_OnTextChanged"
                      MouseDoubleClick="Box_OnMouseDoubleClick"
