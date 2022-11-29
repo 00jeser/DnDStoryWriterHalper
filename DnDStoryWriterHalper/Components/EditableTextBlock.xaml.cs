@@ -129,6 +129,8 @@ namespace DnDStoryWriterHalper.Components
         {
             Block.Visibility = Visibility.Hidden;
             Box.Visibility = Visibility.Visible;
+            Box.Focus();
+            Box.CaretIndex = Box.Text.Length;
         }
 
         public void ToggleToView()
