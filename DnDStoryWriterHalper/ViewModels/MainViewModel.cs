@@ -24,6 +24,13 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _items, value);
         }
 
+        private double _activePanelWidth;
+        public double ActivePanelWidth
+        {
+            get => _activePanelWidth;
+            set => ChangeProperty(ref _activePanelWidth, value);
+        }
+
         private IDirrectoryComponent _selectedItem;
 
         public IDirrectoryComponent SelectedItem
