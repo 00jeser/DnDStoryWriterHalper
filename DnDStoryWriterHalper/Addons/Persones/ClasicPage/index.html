@@ -3,24 +3,446 @@
 
 <head>
     <title>index</title>
-    <script>
-        window.onload = async function () {
-            await CefSharp.BindObjectAsync("dnd");
-
-            window.setContent = (parameters) => {
-                document.getElementById("content").value = parameters;
-            }
-        }
-
-
-        async function aClick() {
-            window.dnd.updateContent(document.getElementById("content").value+"");
-        }
-    </script>
+    <script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
 <body>
-    <input id="content" onchange="aClick()">
+    <form>
+        <div class="scroller">
+            <div class="container">
+                <div class="card">
+                    <div class="stats">
+                        <div class="stats-header">
+                            <div class="stats-header-name">
+                                <input class="stats-header-name-input">
+                            </div>
+                            <div class="stats-header-info">
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>класс и уровень</div>
+                                </div>
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>предистория</div>
+                                </div>
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>имя игрока</div>
+                                </div>
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>расса</div>
+                                </div>
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>мировозрение</div>
+                                </div>
+                                <div class="stats-header-info-field">
+                                    <input>
+                                    <div>опыт</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-content">
+                            <div class="stats-content-skills">
+                                <div class="stats-content-skills-max">
+                                    <div>
+                                        <p>СИЛА</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                    <div>
+                                        <p>ЛОВКОСТЬ</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 0.8vh;">ТЕЛОСЛОЖЕНИЕ</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                    <div>
+                                        <p>ИНТЕЛЛЕКТ</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                    <div>
+                                        <p>МУДРОСТЬ</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                    <div>
+                                        <p>ХАРИЗМА</p>
+                                        <input class="stats-content-skills-max-big">
+                                        <input class="stats-content-skills-max-small">
+                                    </div>
+                                </div>
+                                <div class="stats-content-skills-min">
+                                    <div>
+                                        <input type="checkbox" style="width: 2vh; height: 2vh;">
+                                        <p>
+                                            ВДОХНОВЕНИЕ
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <input placeholder="0" style="width: 4vh;">
+                                        <p>
+                                            БОНУС МАСТЕРСТВА
+                                        </p>
+                                    </div>
+                                    <div style="flex-direction: column;">
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Сила</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Ловкость</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Телосложение</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Интеллект</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Мудрость</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 3vh;" placeholder="0">
+                                            <p>Харизма</p>
+                                        </div>
+                                        <p>
+                                            СПАСБРОСКИ
+                                        </p>
+                                    </div>
+                                    <div style="flex-direction: column;">
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Акробатика (Лов)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Анализ (Инт)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Атлетика (Сил)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p style="font-size: 0.6rem;">Внимательность (Мдр)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Выживание (Мдр)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Выступление (Хар)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Запугивание (Хар)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>История (Инт)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Ловкость рук (Лов)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Магия (Инт)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Медицина (Мдр)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Обман (Хар)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Природа (Инт)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p style="font-size: 0.6rem;">Проницательность (Мдр)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Религия (Инт)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Скрытность (Лов)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p>Убеждение (Хар)</p>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox">
+                                            <input style="width: 2vh;" placeholder="0">
+                                            <p style="font-size: 0.55rem;">Уход за животными (Мдр)</p>
+                                        </div>
+                                        <p>
+                                            НАВЫКИ
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="stats-content-dynamic">
+                                <div class="stats-content-dynamic-small">
+                                    <textarea type="text" placeholder="0" name="ta123"></textarea>
+                                    <p>КД</p>
+                                </div>
+                                <div class="stats-content-dynamic-small">
+                                    <textarea type="text" placeholder="0"></textarea>
+                                    <p>Инициатива</p>
+                                </div>
+                                <div class="stats-content-dynamic-small">
+                                    <textarea type="text" placeholder="0"></textarea>
+                                    <p>Скорость</p>
+                                </div>
+
+                                <div class="stats-content-dynamic-big">
+                                    <textarea type="text" placeholder="0"></textarea>
+                                    <p>Текщие хиты</p>
+                                </div>
+                                <div class="stats-content-dynamic-big">
+                                    <textarea type="text" placeholder="0"></textarea>
+                                    <p>Временные хиты</p>
+                                </div>
+
+                                <div class="stats-content-dynamic-middle">
+                                    <textarea type="text" placeholder="0"></textarea>
+                                    <p>Кость хитов</p>
+                                </div>
+                                <div class="stats-content-dynamic-middle">
+                                    <div class="stats-content-dynamic-dices">
+                                        <p>Успехи</p>
+                                        <input type="checkbox">
+                                        <input type="checkbox">
+                                        <input type="checkbox">
+                                        <p>Провалы</p>
+                                        <input type="checkbox">
+                                        <input type="checkbox">
+                                        <input type="checkbox">
+                                    </div>
+                                    <p>Спасброски</p>
+                                </div>
+                            </div>
+                            <div class="stats-content-personality">
+                                <div class="stats-content-personality-container">
+                                    <textarea type="text"></textarea>
+                                    <p>Черты характера</p>
+                                </div>
+                                <div class="stats-content-personality-container">
+                                    <textarea type="text"></textarea>
+                                    <p>Идеалы</p>
+                                </div>
+                                <div class="stats-content-personality-container">
+                                    <textarea type="text"></textarea>
+                                    <p>Привязанности</p>
+                                </div>
+                                <div class="stats-content-personality-container">
+                                    <textarea type="text"></textarea>
+                                    <p>Слабости</p>
+                                </div>
+                            </div>
+                            <div class="stats-content-speedspells">
+                                <textarea style="height: 90%;"></textarea>
+                                <p style="height: 10%;">АТАКИ И ЗАКЛИНАНИЯ</p>
+                            </div>
+                            <div class="stats-content-softskills">
+                                <textarea type="text"></textarea>
+                                <p>Умения и особенности</p>
+                            </div>
+                            <div class="stats-content-langs">
+                                <textarea type="text"></textarea>
+                                <p>Прочие владения и языки</p>
+                            </div>
+                            <div class="stats-content-equipment">
+                                <div class="stats-content-equipment-money">
+                                    <div>
+                                        <p>мм</p>
+                                        <input placeholder="0">
+                                    </div>
+                                    <div>
+                                        <p>см</p>
+                                        <input placeholder="0">
+                                    </div>
+                                    <div>
+                                        <p>эм</p>
+                                        <input placeholder="0">
+                                    </div>
+                                    <div>
+                                        <p>зм</p>
+                                        <input placeholder="0">
+                                    </div>
+                                    <div>
+                                        <p>пм</p>
+                                        <input placeholder="0">
+                                    </div>
+                                </div>
+                                <div class="stats-content-equipment-other">
+                                    <textarea></textarea>
+                                    <p>
+                                        СНАРЯЖЕНИЕ
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="invent">
+                        <div class="invent-conent">
+                            <textarea></textarea>
+                            <p>СОЮЗНИКИ И ОРГАНИЗАЦИИ</p>
+                        </div>
+                        <div class="invent-conent">
+                            <textarea></textarea>
+                            <p>ПЕРЕДЫСТОРИЯ ПЕРСОНАЖА</p>
+                        </div>
+                        <div class="invent-conent">
+                            <textarea></textarea>
+                            <p>ДОПОЛНИТЕЛЬНЫЕ ОСОБЕННОСТИ И УМЕНИЯ</p>
+                        </div>
+                        <div class="invent-conent">
+                            <textarea></textarea>
+                            <p>СОКРОВИЩА</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-container">
+                    <div class="spells">
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>0</p>
+                                <p></p>
+                                ЗАГОВОРЫ
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>3</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>6</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>1</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>4</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>7</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>2</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>5</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content">
+                            <div class="spells-content-head">
+                                <p>8</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                        <div class="spells-content" style="height: 20vh;">
+                            <div class="spells-content-head">
+                                <p>9</p>
+                                <textarea style="text-align: end;"></textarea>
+                                <p>/</p>
+                                <textarea></textarea>
+                            </div>
+                            <textarea></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </body>
 
 </html>

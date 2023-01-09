@@ -72,6 +72,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Addons\Persones\ClasicPage\index.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Addons\Persones\ClasicPage\index.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Addons\Persones\metadata.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
