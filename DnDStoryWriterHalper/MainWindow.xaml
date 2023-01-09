@@ -42,18 +42,19 @@
                     <ColumnDefinition MaxWidth="600" MinWidth="100"/>
                     <ColumnDefinition Width="4"/>
                     <ColumnDefinition/>
+                    <ColumnDefinition Width="4"/>
+                    <ColumnDefinition x:Name="ActiveColumn" Width="{Binding ActivePanelWidth}" MaxWidth="600" MinWidth="0"/>
                 </Grid.ColumnDefinitions>
 
                 <views:ProjectView/>
                 <Grid Grid.Column="2">
-                    <!--<components:AddonViewer/>-->
-                    <!--<visualNodeEditor:VisualNodeEditor x:Name="Editor" Margin="0 50 0 0 "/>
-                    <TextBlock VerticalAlignment="Top" HorizontalAlignment="Stretch" Text="{Binding FigureData,ElementName=Editor}" Height="50" TextWrapping="WrapWithOverflow"/>-->
-
                     <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
                 </Grid>
 
+                <views:ActivePanelView/>
+
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Grid>
         </Grid>
     </Grid>
