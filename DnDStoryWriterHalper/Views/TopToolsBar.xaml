@@ -28,5 +28,9 @@
         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding }" ToolTip="сохранить">
             <Label fontAwesome:ImageAwesome.FontAwesome="floppyDisk" Margin="4" FontSize="25"/>
         </Button>
+        <Grid Width="100"/>
+        <Button Command="{Binding }" CommandParameter="{Binding }" ToolTip="Актианая панель">
+            <Label fontAwesome:ImageAwesome.FontAwesome="squareCaretLeft" Margin="4" FontSize="25"/>
+        </Button>
     </StackPanel>
 </Grid>
