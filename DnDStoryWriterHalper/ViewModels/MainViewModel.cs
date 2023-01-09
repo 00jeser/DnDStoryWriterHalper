@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
@@ -25,8 +26,8 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _items, value);
         }
 
-        private double _activePanelWidth;
-        public double ActivePanelWidth
+        private GridLength _activePanelWidth;
+        public GridLength ActivePanelWidth
         {
             get => _activePanelWidth;
             set => ChangeProperty(ref _activePanelWidth, value);
@@ -105,7 +106,7 @@ namespace DnDStoryWriterHalper.ViewModels
             });
             _activePanelCommand = new Command(p =>
             {
-                ActivePanelWidth = 200;
+                ActivePanelWidth = new GridLength(200, GridUnitType.Pixel);
             });
         }
     }
