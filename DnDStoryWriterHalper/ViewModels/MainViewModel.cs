@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DnDStoryWriterHalper.Models;
 using DnDStoryWriterHalper.Services;
+using DnDStoryWriterHalper.Views;
 using HandyControl.Controls;
 using HandyControl.Data;
 using Microsoft.Win32;
@@ -44,7 +45,7 @@ namespace DnDStoryWriterHalper.ViewModels
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "*.zip|*.zip";
             fd.ShowDialog();
-            if(string.IsNullOrEmpty(fd.FileName) || !File.Exists(fd.FileName))
+            if (string.IsNullOrEmpty(fd.FileName) || !File.Exists(fd.FileName))
                 return;
             ProjectService.Instance.LoadFromFile(fd.FileName);
         });
@@ -85,6 +86,15 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _saveCommand, value);
         }
 
+        private ICommand _activePanelCommand;
+
+        public ICommand ActivePanelCommand
+        {
+            get => _activePanelCommand;
+            set => ChangeProperty(ref _activePanelCommand, value);
+        }
+
+
         public MainViewModel()
         {
             Items = ProjectService.Instance.Components;
@@ -92,6 +102,10 @@ namespace DnDStoryWriterHalper.ViewModels
             {
                 ProjectService.Instance.NewProject();
                 SelectedItem = null;
+            });
+            _activePanelCommand = new Command(p =>
+            {
+                ActivePanelWidth = 200;
             });
         }
     }
