@@ -51,7 +51,7 @@
                     <ContentControl ContentTemplateSelector="{StaticResource PagesTemplateSelector}" Content="{Binding SelectedItem}"/>
                 </Grid>
 
-                <views:ActivePanelView/>
+                <views:ActivePanelView Grid.Column="4"/>
 
                 <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 <GridSplitter Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>

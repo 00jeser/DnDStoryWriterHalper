@@ -8,9 +8,6 @@ namespace DnDStoryWriterHalper.ViewModels
 {
     public class ActivePanelViewModel : ViewModelBase
     {
-        public ActivePanelViewModel()
-        {
 
-        }
     }
 }

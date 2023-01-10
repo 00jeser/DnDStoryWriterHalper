@@ -3,9 +3,104 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:DnDStoryWriterHalper.Views.ActivePanelViews"
+      xmlns:local="clr-namespace:DnDStoryWriterHalper.Views.ActivePanelViews" 
+      xmlns:viewmodels="clr-namespace:DnDStoryWriterHalper.ViewModels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      >
-    
+      xmlns:fontAwesome="clr-namespace:DnDStoryWriterHalper.Components.Helpers.FontAwesome" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      Height="400"
+      x:Name="MainGrid">
+    <Grid.DataContext>
+        <viewmodels:AudioPlayerViewModel/>
+    </Grid.DataContext>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Border CornerRadius="5" Margin="3" Background="#11000000">
+        <StackPanel>
+            <TextBlock Text="{Binding CurrentMusicFile.FileName}" FontSize="18" Margin="3" HorizontalAlignment="Stretch"/>
+            <Slider Maximum="1" Minimum="0" Value="{Binding TimeProgressPart}" Margin="3"/>
+            <Button Visibility="{Binding PlayButtonVisible}" Margin="3" Command="{Binding PlayPauseCommand}" CommandParameter="{Binding}">
+                <Label
+                    fontAwesome:ImageAwesome.FontAwesome="play"
+                    />
+            </Button>
+            <Button Visibility="{Binding PauseButtonVisible}" Margin="3" Command="{Binding PlayPauseCommand}" CommandParameter="{Binding}">
+                <Label
+                    fontAwesome:ImageAwesome.FontAwesome="pause"
+                    />
+            </Button>
+        </StackPanel>
+    </Border>
+    <Border CornerRadius="5" Margin="3" Background="#11000000" Grid.Row="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" MaxHeight="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBox Margin="3"/>
+            <StackPanel Grid.Row="1">
+                <ItemsControl>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="red" CornerRadius="9" Padding="3 1" Margin="4 2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="dwas" FontSize="12" VerticalAlignment="Center"/>
+                                    <Border Background="Gray" CornerRadius="15" Margin="1" Cursor="Hand" >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDown" >
+                                                <i:InvokeCommandAction Command="" CommandParameter=""/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <TextBlock Text="X" Width="15" Height="15" LineHeight="15" TextAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Button>
+                    <Label fontAwesome:ImageAwesome.FontAwesome="circlePlus"/>
+                </Button>
+            </StackPanel>
+            <ScrollViewer Grid.Row="3">
+                <ItemsControl ItemsSource="{Binding MusicFiles}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Height="auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" CommandParameter="{Binding}" Command="{Binding DataContext.PlayCommand, RelativeSource={RelativeSource AncestorType=Grid}}">
+                                <Grid HorizontalAlignment="Stretch">
+                                    <TextBlock Text="{Binding FileName}" Margin="3" FontSize="13"/>
+                                    <ItemsControl Margin="0 20 0 0" ItemsSource="{Binding Genres}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="red" CornerRadius="9" Padding="3 1" Margin="4 2">
+                                                    <TextBlock Text="{Binding}" FontSize="12" VerticalAlignment="Center"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </Grid>

@@ -17,6 +17,7 @@ namespace DnDStoryWriterHalper.Models
 
         public MusicFile(string FileName) 
         {
+            this.FileName = FileName;
             var genresFile = BaseFilePath + FileName + ".txt";
             if (File.Exists(genresFile))
             {
