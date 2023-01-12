@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Windows.Media.Playback;
 
@@ -19,7 +20,7 @@ namespace DnDStoryWriterHalper.ViewModels
         private ObservableCollection<MusicFile> _musicFiles;
         public ObservableCollection<MusicFile> MusicFiles
         {
-            get => _musicFiles;
+            get => new ObservableCollection<MusicFile>(_musicFiles.Where(IsSearchMusic));
             set => ChangeProperty(ref _musicFiles, value);
         }
 
@@ -55,13 +56,43 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _timeProgressPart, value);
         }
 
-        private float _vlume;
-        public float Vlume
+        public float Volume
         {
-            get => _vlume;
-            set => ChangeProperty(ref _vlume, value);
+            get
+            {
+                return (float)_player.Volume;
+            }
+            set
+            {
+                _player.Volume = value;
+                OnPropertyChanged(nameof(Volume));
+            }
         }
 
+        private bool? _autoPlay = false;
+        public bool? AutoPlay
+        {
+            get => _autoPlay;
+            set => ChangeProperty(ref _autoPlay, value);
+        }
+
+        private List<string> _searchGenres;
+        public List<string> SearchGenres
+        {
+            get => _searchGenres;
+            set
+            {
+                ChangeProperty(ref _searchGenres, value);
+                OnPropertyChanged(nameof(MusicFiles));
+            }
+        }
+
+        private ObservableCollection<string> _allGenres;
+        public ObservableCollection<string> AllGenres
+        {
+            get => _allGenres;
+            set => ChangeProperty(ref _allGenres, value);
+        }
 
 
         private MediaPlayer _player;
@@ -80,8 +111,8 @@ namespace DnDStoryWriterHalper.ViewModels
         private ICommand _playCommand;
         public ICommand PlayCommand
         {
-            get => _playPauseCommand;
-            set => ChangeProperty(ref _playPauseCommand, value);
+            get => _playCommand;
+            set => ChangeProperty(ref _playCommand, value);
         }
         #endregion
         public AudioPlayerViewModel()
@@ -96,16 +127,24 @@ namespace DnDStoryWriterHalper.ViewModels
                 if (music.EndsWith(".mp3"))
                 {
                     var r = music.Split('\\', '/');
-                    MusicFiles.Add(new MusicFile(r.Last()));
+                    _musicFiles.Add(new MusicFile(r.Last()));
                 }
             }
+
+            var allGenres = new List<string>();
+            foreach (var mf in _musicFiles)
+                if (mf.Genres != null && mf.Genres.Count > 0)
+                    foreach (var genre in mf.Genres)
+                        allGenres.Add(genre);
+            AllGenres = new ObservableCollection<string>(allGenres);
+            SearchGenres = new List<string>();
 
             _player = new MediaPlayer();
             _player.CurrentStateChanged += _player_CurrentStateChanged;
 
-            PlayPauseCommand = new Command(async p =>
+            PlayPauseCommand = new Command(p =>
             {
-                if(_player.CurrentState == MediaPlayerState.Playing)
+                if (_player.CurrentState == MediaPlayerState.Playing)
                 {
                     _player.Pause();
                 }
@@ -114,7 +153,7 @@ namespace DnDStoryWriterHalper.ViewModels
                     _player.Play();
                 }
             });
-            PlayCommand = new Command(a => 
+            PlayCommand = new Command(a =>
             {
                 if (a is MusicFile mf)
                 {
@@ -123,13 +162,12 @@ namespace DnDStoryWriterHalper.ViewModels
                 }
             });
 
-
-            CurrentMusicFile = MusicFiles.Last();
+            OnPropertyChanged(nameof(MusicFiles));
         }
 
         private void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
         {
-            TimeProgressPart = (float)(_player.Position /_player.NaturalDuration );
+            TimeProgressPart = (float)(_player.Position / _player.NaturalDuration);
         }
 
         private void _player_CurrentStateChanged(MediaPlayer sender, object args)
@@ -144,6 +182,20 @@ namespace DnDStoryWriterHalper.ViewModels
                 PlayButtonVisible = Visibility.Visible;
                 PauseButtonVisible = Visibility.Collapsed;
             }
+        }
+
+        private bool IsSearchMusic(MusicFile music)
+        {
+            bool genreContains = false;
+            if(music.Genres != null)
+            foreach (var g in music.Genres)
+            {
+                if(SearchGenres.Contains(g))
+                    genreContains= true;
+            }
+            if(genreContains || SearchGenres.Count == 0)
+                return true;
+            return false;
         }
     }
 }

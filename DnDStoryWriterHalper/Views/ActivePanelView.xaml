@@ -12,7 +12,7 @@
         <viewmodels:ActivePanelViewModel/>
     </Grid.DataContext>
     <StackPanel>
-        <!--  -->
+        <!-- Audio player -->
         <activepanelviews:AudioPlayer/>
     </StackPanel>
 </Grid>

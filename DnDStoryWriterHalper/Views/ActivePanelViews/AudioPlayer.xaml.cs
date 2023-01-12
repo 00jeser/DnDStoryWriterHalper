@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HandyControl.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,22 @@ namespace DnDStoryWriterHalper.Views.ActivePanelViews
     /// <summary>
     /// Логика взаимодействия для AudioPlayer.xaml
     /// </summary>
-    public partial class AudioPlayer : Grid
+    public partial class AudioPlayer : Border
     {
         public AudioPlayer()
         {
             InitializeComponent();
+            
+        }
+
+        private void CheckComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var lst = new List<string>();
+            foreach(var item in (sender as CheckComboBox).SelectedItems) 
+            {
+                lst.Add(item.ToString());
+            }
+            vm.SearchGenres = new List<string>(lst);
         }
     }
 }
