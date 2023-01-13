@@ -49,7 +49,7 @@
                     <RowDefinition Height="auto" MaxHeight="100"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <hc:WatermarkTextBox Watermark="Поиск..." Margin="3"/>
+                <hc:WatermarkTextBox Watermark="Поиск..." Margin="3" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
                 <StackPanel Grid.Row="1">
                     <hc:CheckComboBox ItemsSource="{Binding AllGenres}" IsTextSearchEnabled="True" SelectionChanged="CheckComboBox_SelectionChanged"/>
                 </StackPanel>

@@ -93,6 +93,17 @@ namespace DnDStoryWriterHalper.ViewModels
             set => ChangeProperty(ref _allGenres, value);
         }
 
+        private string _searchString;
+        public string SearchString
+        {
+            get => _searchString;
+            set
+            {
+                ChangeProperty(ref _searchString, value);
+                OnPropertyChanged(nameof(MusicFiles));
+            }
+        }
+
 
         private MediaPlayer _player;
         public MediaPlayer Player
@@ -136,7 +147,7 @@ namespace DnDStoryWriterHalper.ViewModels
             foreach (var mf in _musicFiles)
                 if (mf.Genres != null && mf.Genres.Count > 0)
                     foreach (var genre in mf.Genres)
-                        if(!allGenres.Contains(genre))
+                        if (!allGenres.Contains(genre))
                             allGenres.Add(genre);
             AllGenres = new ObservableCollection<string>(allGenres);
             SearchGenres = new List<string>();
@@ -171,7 +182,7 @@ namespace DnDStoryWriterHalper.ViewModels
         private void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
         {
             TimeProgressPart = (float)(_player.Position / _player.NaturalDuration);
-            if(AutoPlay == true && TimeProgressPart == 1)
+            if (AutoPlay == true && TimeProgressPart == 1)
             {
                 var fls = MusicFiles;
                 CurrentMusicFile = fls[_random.Next(0, fls.Count)];
@@ -195,14 +206,16 @@ namespace DnDStoryWriterHalper.ViewModels
 
         private bool IsSearchMusic(MusicFile music)
         {
+            if (!string.IsNullOrWhiteSpace(_searchString) && music.FileName.Contains(_searchString))
+                return false;
             bool genreContains = false;
-            if(music.Genres != null)
-            foreach (var g in music.Genres)
-            {
-                if(SearchGenres.Contains(g))
-                    genreContains= true;
-            }
-            if(genreContains || SearchGenres.Count == 0)
+            if (music.Genres != null)
+                foreach (var g in music.Genres)
+                {
+                    if (SearchGenres.Contains(g))
+                        genreContains = true;
+                }
+            if (genreContains || SearchGenres.Count == 0)
                 return true;
             return false;
         }
