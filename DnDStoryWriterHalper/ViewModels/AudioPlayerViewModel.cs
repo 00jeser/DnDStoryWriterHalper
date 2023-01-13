@@ -31,7 +31,6 @@ namespace DnDStoryWriterHalper.ViewModels
             set
             {
                 _player.SetUriSource(new Uri(MusicFile.BaseFilePath + value.FileName));
-                _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged; ;
                 ChangeProperty(ref _currentMusicFile, value);
             }
         }
@@ -100,6 +99,8 @@ namespace DnDStoryWriterHalper.ViewModels
         {
             get => _player;
         }
+
+        private Random _random = new Random();
         #endregion
         #region Commands
         private ICommand _playPauseCommand;
@@ -135,12 +136,14 @@ namespace DnDStoryWriterHalper.ViewModels
             foreach (var mf in _musicFiles)
                 if (mf.Genres != null && mf.Genres.Count > 0)
                     foreach (var genre in mf.Genres)
-                        allGenres.Add(genre);
+                        if(!allGenres.Contains(genre))
+                            allGenres.Add(genre);
             AllGenres = new ObservableCollection<string>(allGenres);
             SearchGenres = new List<string>();
 
             _player = new MediaPlayer();
             _player.CurrentStateChanged += _player_CurrentStateChanged;
+            _player.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
 
             PlayPauseCommand = new Command(p =>
             {
@@ -168,6 +171,12 @@ namespace DnDStoryWriterHalper.ViewModels
         private void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
         {
             TimeProgressPart = (float)(_player.Position / _player.NaturalDuration);
+            if(AutoPlay == true && TimeProgressPart == 1)
+            {
+                var fls = MusicFiles;
+                CurrentMusicFile = fls[_random.Next(0, fls.Count)];
+                _player.Play();
+            }
         }
 
         private void _player_CurrentStateChanged(MediaPlayer sender, object args)
