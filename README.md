@@ -10,7 +10,7 @@
 <img src="readmeimg/image.png" width="400">
 ## Страница с деревом
 Можно создать дерево, а каждая нода может быть ссылкой на другую страницу<br>
-<img src="readmeimg/text.png" width="400">
+<img src="readmeimg/tree.png" width="400">
 ## Страница с сайтом
 Можно использовать ссылку на сайт как страницу<br>
 <img src="readmeimg/url.png" width="400">
